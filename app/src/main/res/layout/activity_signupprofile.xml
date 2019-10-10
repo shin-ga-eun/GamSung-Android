@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:text="회원가입"
+        android:textColor="#f199bc"
+        android:textSize="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="120dp"
+        android:paddingLeft="43dp"
+        />
+
+    <!--프로필사진-->
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="70dp"
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:layout_marginLeft="35dp"
+            />
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgUser"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:maxHeight="200dp"
+                android:maxWidth="200dp"
+                android:onClick="onClick"
+                />
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="#df5285"
+                android:text="사진선택"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="70dp"
+        >
+
+        <Button
+            android:id="@+id/btnSignUpTag"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="다음"
+            android:textColor="#FFFFFF"
+            android:background="#df5285"
+            android:textSize="17dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="100dp"
+            />
+    </LinearLayout>
+
+</LinearLayout>

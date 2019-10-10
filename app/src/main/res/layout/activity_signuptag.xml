@@ -3,4 +3,109 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:text="회원가입"
+        android:textColor="#f199bc"
+        android:textSize="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="120dp"
+        android:paddingLeft="40dp"
+        />
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="관심있는 태그를 3개 선택해주세요."
+            android:textSize="23dp"
+            android:layout_marginLeft="20dp"
+            />
+
+    </LinearLayout>
+<!--    선택한 태그 3개-->
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+
+        >
+        <TextView
+            android:id="@+id/textTag1"
+            android:layout_width="80dp"
+            android:layout_height="32dp"
+            android:text="태그1"
+            android:textSize="23dp"
+            android:textAlignment="center"
+            android:textColor="#a3a1a1"
+            android:background="#feee7d"
+            android:layout_marginLeft="15dp"
+            />
+        <TextView
+            android:id="@+id/textTag2"
+            android:layout_width="80dp"
+            android:layout_height="32dp"
+            android:text="태그2"
+            android:textSize="23dp"
+            android:textAlignment="center"
+            android:textColor="#a3a1a1"
+            android:background="#feee7d"
+            android:layout_marginLeft="15dp"
+            />
+        <TextView
+            android:id="@+id/textTag3"
+            android:layout_width="80dp"
+            android:layout_height="32dp"
+            android:text="태그3"
+            android:textSize="23dp"
+            android:textAlignment="center"
+            android:textColor="#a3a1a1"
+            android:background="#feee7d"
+            android:layout_marginLeft="15dp"
+            />
+    </LinearLayout>
+
+<!--    태그 리스트-->
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        >
+
+
+
+
+    </ListView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="70dp"
+        >
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="완료"
+            android:textColor="#FFFFFF"
+            android:background="#df5285"
+            android:textSize="17dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="100dp"
+            />
+    </LinearLayout>
 </LinearLayout>
