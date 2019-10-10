@@ -3,4 +3,94 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:text="로그인"
+        android:textColor="#f199bc"
+        android:textSize="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="120dp"
+        android:paddingLeft="43dp"
+        />
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="80dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:layout_marginLeft="50dp"
+            />
+        <EditText
+            android:id="@+id/editId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="35dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PW"
+            android:layout_marginLeft="60dp"
+
+            />
+        <EditText
+            android:id="@+id/editPw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="70dp"
+        >
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="시작하기"
+            android:textColor="#FFFFFF"
+            android:background="#df5285"
+            android:textSize="17dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="100dp"
+            />
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="회원가입"
+            android:textColor="#df5285"
+            android:background="#FFFFFF"
+            android:textSize="17dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="100dp"
+            />
+    </LinearLayout>
+
+
+
 </LinearLayout>

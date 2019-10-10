@@ -20,6 +20,8 @@
         <activity android:name=".LoginActivity"/>
         <activity android:name=".SignUpActivity"/>
         <activity android:name=".SignUpTagActivity"/>
+        <activity android:name=".MainHomeActivity"/>
+        <activity android:name=".SignUpProfileActivity"/>
 
 
     </application>

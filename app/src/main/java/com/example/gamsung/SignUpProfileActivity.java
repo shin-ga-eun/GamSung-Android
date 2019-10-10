@@ -7,21 +7,21 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpProfileActivity extends AppCompatActivity {
 
-    Button btnSignUpProfile;
+    Button btnSignUpTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_signupprofile);
 
-        btnSignUpProfile = (Button)findViewById(R.id.btnSignUpProfile);
+        btnSignUpTag = (Button)findViewById(R.id.btnSignUpTag);
 
-        btnSignUpProfile.setOnClickListener(new View.OnClickListener() {
+        btnSignUpTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),SignUpProfileActivity.class);
+                Intent intent = new Intent(getApplicationContext(),SignUpTagActivity.class);
                 startActivity(intent);
             }
         });
