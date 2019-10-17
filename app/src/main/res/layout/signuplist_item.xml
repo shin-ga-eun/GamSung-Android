@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="52dp">
+<!--#-->
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="#"
+        android:textSize="37dp"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="10dp"
+        />
+<!--    해시태그 이름-->
+    <Button
+        android:id="@+id/btnHashTagName"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:textSize="35dp"
+        android:textColor="#000000"
+        android:background="#D9D4CF"
+        />
+
+</LinearLayout>

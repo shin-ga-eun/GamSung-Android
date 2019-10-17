@@ -5,16 +5,32 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="40dp"
         android:text="회원가입"
         android:textColor="#f199bc"
-        android:textSize="40dp"
+        android:textSize="25dp"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="120dp"
+        android:layout_marginLeft="130dp"
         android:paddingLeft="43dp"
         />
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
 
-    <!--프로필사진-->
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로필 사진 한장을 선택해주세요!"
+            android:textSize="20dp"
+            android:layout_marginLeft="30dp"
+            />
+
+    </LinearLayout>
+<!--프로필사진 imgUser-->
     <LinearLayout
         android:layout_width="350dp"
         android:layout_height="wrap_content"
@@ -30,6 +46,7 @@
             android:layout_marginLeft="35dp"
             />
 
+        ///////////////////////////////////////////////////////////////이미지////
         <LinearLayout
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -52,15 +69,18 @@
                 android:layout_width="200dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:background="#df5285"
+                android:background="#CBA6C3"
                 android:text="사진선택"
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"
                 />
 
         </LinearLayout>
+        ///////////////////////////////////////////////////////////////
+
     </LinearLayout>
 
+<!--    btnSignUpTag-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

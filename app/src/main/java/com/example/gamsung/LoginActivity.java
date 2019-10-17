@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+//아이디, 비밀번호를 입력받아 서버에 전송 후 로그인 승인을 한다.
+
 public class LoginActivity extends AppCompatActivity {
 
     Button btnStart, btnSignUp;
