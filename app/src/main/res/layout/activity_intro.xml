@@ -13,20 +13,11 @@
         android:layout_marginLeft="80dp"
         android:layout_marginTop="125dp"
         android:paddingLeft="60dp"
-        android:text="갬 성 ,"
+        android:text="감 성 ,"
         android:textColor="#FFFFFF"
         android:textSize="50dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="10dp"
 
-        android:paddingLeft="45dp"
-        android:text="어서오세요"
-        android:textColor="#FFFFFF"
-        android:textSize="45dp" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -36,7 +27,7 @@
         android:textColor="#FFFFFF"
         android:background="#f199bc"
         android:textSize="23dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         android:layout_marginLeft="140dp"
         />
     <Button

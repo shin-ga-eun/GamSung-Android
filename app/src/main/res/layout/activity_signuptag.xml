@@ -5,11 +5,11 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:text="회원가입"
         android:textColor="#f199bc"
-        android:textSize="40dp"
-        android:layout_marginTop="30dp"
+        android:textSize="35dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="120dp"
         android:paddingLeft="40dp"
         />
@@ -25,13 +25,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="관심있는 태그를 3개 선택해주세요."
-            android:textSize="23dp"
+            android:text="관심있는 태그를 3개 선택해주세요!"
+            android:textSize="20dp"
             android:layout_marginLeft="20dp"
             />
 
     </LinearLayout>
-<!--    선택한 태그 3개-->
+<!--    선택할 태그 3개-->
     <LinearLayout
         android:layout_width="350dp"
         android:layout_height="wrap_content"
@@ -77,17 +77,17 @@
 
 <!--    태그 리스트-->
     <ListView
+        android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="300dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         >
 
-
-
-
     </ListView>
+
+<!--    완료버튼-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

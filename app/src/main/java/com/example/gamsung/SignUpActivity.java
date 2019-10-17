@@ -7,7 +7,10 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SignUpActivity extends AppCompatActivity {
+//회원가입 첫페이지 -> 아이디, 비밀번호, 닉네임을 입력받아 서버에 저장한다.
+
+public class SignUpActivity extends AppCompatActivity
+{
 
     Button btnSignUpProfile;
 

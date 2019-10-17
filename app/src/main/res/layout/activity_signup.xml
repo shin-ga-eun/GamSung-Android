@@ -9,27 +9,26 @@
         android:layout_height="70dp"
         android:text="회원가입"
         android:textColor="#f199bc"
-        android:textSize="40dp"
+        android:textSize="25dp"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="120dp"
-        android:paddingLeft="43dp"
+        android:layout_marginLeft="140dp"
+        android:paddingLeft="20dp"
         />
 
-    <!--    아이디-->
+    <!--    editId -->
     <LinearLayout
-        android:layout_width="350dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="70dp"
         android:layout_gravity="center"
-
+        android:layout_marginRight="10dp"
         >
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="30dp"
             />
         <EditText
             android:id="@+id/editId"
@@ -39,39 +38,38 @@
             />
     </LinearLayout>
 
-<!--    비밀번호-->
+<!--    editPw-->
     <LinearLayout
-        android:layout_width="350dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="35dp"
         android:layout_gravity="center"
+        android:layout_marginRight="10dp"
 
         >
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PW"
-            android:layout_marginLeft="50dp"
-
+            android:layout_marginLeft="30dp"
             />
         <EditText
             android:id="@+id/editPw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-
             />
     </LinearLayout>
 
-<!--    닉네임-->
+<!--    editName-->
     <LinearLayout
-        android:layout_width="350dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="35dp"
         android:layout_gravity="center"
+        android:layout_marginRight="10dp"
 
         >
 
@@ -79,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="닉네임"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="20dp"
 
             />
         <EditText
