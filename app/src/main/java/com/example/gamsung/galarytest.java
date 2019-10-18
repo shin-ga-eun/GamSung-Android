@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import java.io.File;
 
-public class SignUpProfileActivity extends Activity implements OnClickListener
+public class galarytest extends Activity implements OnClickListener
 {
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
@@ -23,7 +23,7 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
 
     private Uri mImageCaptureUri;
     private ImageView imgUser;
-    private Button btnImgSelect, btnSignUpTag;
+    private Button btnImgSelect;
 
 
     @Override
@@ -34,17 +34,7 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
 
         btnImgSelect = (Button) findViewById(R.id.btnImgSelect);
         imgUser = (ImageView) findViewById(R.id.imgUser);
-        btnSignUpTag = (Button) findViewById(R.id.btnSignUpTag);
-
         btnImgSelect.setOnClickListener(this);
-
-        btnSignUpTag.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),SignUpTagActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
@@ -154,7 +144,10 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
         new AlertDialog.Builder(this)
                 .setTitle("사진 선택")
                 .setNegativeButton("취소", cancelListener)
-                .setPositiveButton("앨범선택", albumListener)
+                .setNeutralButton("앨범선택", albumListener)
                 .show();
 
     }}
+
+
+
