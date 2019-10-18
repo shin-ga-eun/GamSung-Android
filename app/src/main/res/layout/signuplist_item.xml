@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.gamsung.CheckableLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="52dp">
@@ -8,19 +9,28 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:text="#"
-        android:textSize="37dp"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="10dp"
+        android:textSize="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="15dp"
         />
 <!--    해시태그 이름-->
-    <Button
-        android:id="@+id/btnHashTagName"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
+    <TextView
+        android:id="@+id/textHashTagName"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
         android:layout_marginTop="5dp"
-        android:textSize="35dp"
+        android:textSize="20dp"
         android:textColor="#000000"
         android:background="#D9D4CF"
         />
-
-</LinearLayout>
+<!--체크박스-->
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:focusable="false"
+        android:clickable="false"
+        android:layout_weight="1"
+        />
+</com.example.gamsung.CheckableLinearLayout>
