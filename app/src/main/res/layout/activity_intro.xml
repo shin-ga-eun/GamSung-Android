@@ -13,7 +13,7 @@
         android:layout_marginLeft="80dp"
         android:layout_marginTop="125dp"
         android:paddingLeft="60dp"
-        android:text="감 성 ,"
+        android:text="소 통 ,"
         android:textColor="#FFFFFF"
         android:textSize="50dp" />
 
