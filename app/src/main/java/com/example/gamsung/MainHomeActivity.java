@@ -76,8 +76,20 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             }
+        });
 
+        listview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+            }
+        });
+
+        listview3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
         });
 
         //리스트뷰1add//////////////////////
@@ -87,14 +99,16 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
 
         adapter2.addItem("되나");
 
-        adapter3.addItem("오예에에에에에에");
+        adapter3.addItem("오예에에");
 
     }
         //리스트뷰1/////////////////////////
         @Override
         public void onListBtnClick(String name){
-            Intent intent = new Intent(getApplicationContext(),MyProfileActivity.class);
+            Intent intent = new Intent(getApplicationContext(),HashTagActivity.class);
             intent.putExtra("name",name);
+
+            //Log.d("ccc", name);
 
             startActivity(intent);
     }

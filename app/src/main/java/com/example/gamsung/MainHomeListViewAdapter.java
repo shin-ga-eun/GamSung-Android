@@ -80,7 +80,7 @@ public class MainHomeListViewAdapter extends BaseAdapter {
         return listViewItemList.get(position);
     }
 
-    //아이템 데이터 추가를 위한 함수 -> btnRoomAdd 에서 추가.
+    //아이템 데이터 추가를 위한 함수
     public void addItem(String hashname){
         MainHomeListViewItem item = new MainHomeListViewItem();
 
