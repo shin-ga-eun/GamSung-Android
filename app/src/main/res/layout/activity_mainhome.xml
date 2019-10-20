@@ -1,11 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <!--    상단바-btnMyProfile, 앱이름-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="메인홈입니다."
-        />
+        android:layout_height="40dp"
+        android:background="#D1B6E1"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/btnMyProfile"
+            android:layout_width="75dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="3dp"
+            android:background="#FBFFB9"
+            android:text="My"
+            android:textColor="#791E94"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="90dp"
+            android:text="소 통,"
+            android:textSize="25dp"
+            android:textColor="#FFFFFF"
+            />
+    </LinearLayout>
+
+
+    <TabHost
+        android:id="@+id/tabHost"
+        android:layout_width="match_parent"
+        android:layout_height="500dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- TabWidget의 id값이 반드시 "tabs"로 지정되어야 함. -->
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                />
+
+            <!-- FrameLayout의 id값이 반드시 "tabcontent"로 지정되어야 함. -->
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- 첫 번째 페이지. content1, listview1 -->
+                <LinearLayout
+                    android:id="@+id/content1"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:orientation="vertical">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="500dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="490dp"
+                            android:orientation="vertical"
+                            >
+                            <ListView
+                                android:id="@+id/listview1"
+                                android:layout_width="match_parent"
+                                android:layout_height="490dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:choiceMode="singleChoice"
+                                >
+
+                            </ListView>
+                        </LinearLayout>
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!-- 두 번째 페이지. content2, listview2 -->
+                <LinearLayout
+                    android:id="@+id/content2"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:background="#009688"
+                    android:orientation="vertical">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="500dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="490dp"
+                            android:orientation="vertical"
+                            >
+                            <ListView
+                                android:id="@+id/listview2"
+                                android:layout_width="match_parent"
+                                android:layout_height="490dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:choiceMode="singleChoice"
+                                >
+
+                            </ListView>
+                        </LinearLayout>
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!-- 세 번째 페이지. content3, listview3 -->
+                <LinearLayout
+                    android:id="@+id/content3"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:orientation="vertical">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="500dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="490dp"
+                            android:orientation="vertical"
+                            >
+                            <ListView
+                                android:id="@+id/listview3"
+                                android:layout_width="match_parent"
+                                android:layout_height="490dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:choiceMode="singleChoice"
+                                >
+
+                            </ListView>
+                        </LinearLayout>
+                    </ScrollView>
+
+
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
 </LinearLayout>

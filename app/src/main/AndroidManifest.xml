@@ -23,8 +23,10 @@
         <activity android:name=".SignUpTagActivity"/>
         <activity android:name=".MainHomeActivity"/>
         <activity android:name=".SignUpProfileActivity"/>
+        <activity android:name=".MyProfileActivity"/>
+        <activity android:name=".HashTagActivity"/>
 
-        <activity android:name=".galarytest"/>
+
 
 
 
