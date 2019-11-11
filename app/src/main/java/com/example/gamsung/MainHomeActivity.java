@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainHomeActivity extends AppCompatActivity implements MainHomeListViewAdapter.ListBtnClickListener{
 
     Button btnMyProfile;
+    Button btnMain, btnSearch, btnCard, btnTimeLine, btnChat; // 하단버튼목록들
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,49 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MyProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        /////////////////////////////////////////////////////////////하단버튼목록들////////
+        btnMain = (Button) findViewById(R.id.btnMain);
+        btnSearch = (Button) findViewById(R.id.btnSearch);
+        btnCard = (Button) findViewById(R.id.btnCard);
+        btnTimeLine = (Button) findViewById(R.id.btnTimeLine);
+        btnChat = (Button) findViewById(R.id.btnChat);
+
+        btnMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainHomeActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HashSearchActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnTimeLine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TimeLineActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                 startActivity(intent);
             }
         });
@@ -92,23 +136,22 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
             }
         });
 
-        //리스트뷰1add//////////////////////
+        //리스트뷰 추가 -> 서버와 연결해서 데이터를 받아오는 부분//////////////////////
         adapter1.addItem("해시네임");
         adapter1.addItem("해시네임");
         adapter1.addItem("해시네임");
 
-        adapter2.addItem("되나");
+        adapter2.addItem("인기있는");
+        adapter2.addItem("popular");
 
-        adapter3.addItem("오예에에");
+        adapter3.addItem("새로운");
 
     }
-        //리스트뷰1/////////////////////////
+        //리스트뷰에서 탭 선택시, 해당 탭으로 화면 전환/////////////////////////
         @Override
         public void onListBtnClick(String name){
             Intent intent = new Intent(getApplicationContext(),HashTagActivity.class);
-            intent.putExtra("name",name);
-
-            //Log.d("ccc", name);
+            intent.putExtra("name",name); //탭 name 데이터를 넘겨준다
 
             startActivity(intent);
     }
