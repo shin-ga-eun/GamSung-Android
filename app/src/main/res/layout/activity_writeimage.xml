@@ -5,42 +5,29 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="50dp"
         >
-
         <Button
-            android:id="@+id/btnMainHome"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/exit"
-            />
-
-        <ImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="120dp"
-            android:src="@drawable/pencil" />
-
-        <Button
-            android:id="@+id/btnWriteImage"
+            android:id="@+id/btnWrite"
             android:layout_width="70dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
-            android:text="다음 >"
+            android:text="이전"
             android:textSize="20dp"
             android:textColor="#2E64FE"
             android:background="#00FFFFFF"
             />
+        <ImageView
+            android:src="@drawable/letter"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="100dp"
+            />
+
 
     </LinearLayout>
-
-
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="350dp"
@@ -48,6 +35,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="10dp"
         >
+
 
         <ImageView
             android:id="@+id/imgCard"
@@ -57,10 +45,10 @@
             android:layout_marginTop="10dp"
             android:background="#000000"
             android:src="@drawable/img1"
-            />
+        />
 
-        <EditText
-            android:id="@+id/edtCard"
+        <TextView
+            android:id="@+id/textCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -72,12 +60,12 @@
 
             android:paddingLeft="20dp"
             android:textColor="#000000"
-            android:hint="자유롭게 글을 써보세요..."
-            android:textSize="20dp"
-            android:textStyle="normal"
-            android:typeface="serif" />
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:typeface="serif" />
 
     </RelativeLayout>
+
 
 
 

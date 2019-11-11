@@ -28,6 +28,7 @@
 
         <activity android:name=".HashSearchActivity"/>
         <activity android:name=".WriteActivity"/>
+        <activity android:name=".WriteImageActivity"/>
         <activity android:name=".TimeLineActivity"/>
         <activity android:name=".ChatActivity"/>
 
