@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+//카드작성 페이지1
 public class WriteActivity extends AppCompatActivity {
 
     ImageView imgCard;
@@ -45,12 +46,10 @@ public class WriteActivity extends AppCompatActivity {
             public void onClick(View v) {
                 content = edtCard.getText().toString();
 
-                WriteContentAnalysis wc = new WriteContentAnalysis(content); //값을 보냄?????????????????????????????
-
                 Intent intent = new Intent (getApplicationContext(), WriteImageActivity.class);
                 intent.putExtra("content",content);
                 startActivity(intent);
-                finish();
+
             }
         });
 

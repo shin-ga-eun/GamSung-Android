@@ -20,8 +20,8 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_CAMERA = 2;
-
     private Uri mImageCaptureUri;
+
     private ImageView imgUser;
     private Button btnImgSelect, btnSignUpTag;
 

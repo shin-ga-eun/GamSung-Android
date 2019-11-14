@@ -1,16 +1,10 @@
 package com.example.gamsung;
 
-import android.util.Log;
-
-//자바정규식표현을 통해 해시태그내용을 추출하는 클래스
-package contentAnalysis;
-
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-
+//자바정규식표현을 통해 해시태그내용을 추출하는 클래스
 public class WriteContentAnalysis {
 
 	private String content;
