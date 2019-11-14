@@ -1,11 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <!--    상단바-btnMyProfile, 앱이름-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#D1B6E1"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/btnMainHome"
+            android:layout_width="75dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="3dp"
+            app:backgroundTint="#FBFFB9"
+            android:text="메인홈"
+            android:textColor="#791E94"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/textNickname"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="5dp"
+            android:text="닉네임"
+            android:textSize="20dp"
+            android:textColor="#FFFFFF"
+            />
+    </LinearLayout>
+
+    <!--    프로필이미지-->
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="180dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+        <ImageView
+            android:id="@+id/ImgProfile"
+            android:layout_width="180dp"
+            android:layout_height="175dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:background="#000000"
+            android:src="@drawable/img1"
+            android:layout_gravity="center"
+            />
+        <ImageButton
+            android:id="@+id/btnImgModify"
+            android:layout_width="27dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/gallery"
+            />
+
+    </LinearLayout>
+
+    <!--    자기소개글-->
+    <LinearLayout
+        android:layout_width="280dp"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+
+        <EditText
+            android:id="@+id/edtProfile"
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:background="@null"
+            android:textSize="15dp"
+            android:hint="자기소개를 해주세요..."
+            android:enabled="false"
+            android:focusable="false"
+            />
+        <ImageButton
+            android:id="@+id/btnProfileModify"
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/modify"
+            />
+    </LinearLayout>
+
+<!--    조회수-->
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="내프로필입니다."
-        />
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today"
+            android:textSize="15dp"
+            android:layout_marginRight="3dp"
+            />
+        <TextView
+            android:id="@+id/textTodayView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="15dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" / "
+            android:textSize="15dp"
+            android:layout_marginRight="3dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total"
+            android:textSize="15dp"
+            android:layout_marginRight="3dp"
+            />
+        <TextView
+            android:id="@+id/textTotalView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="15dp"
+            />
+    </LinearLayout>
+
+<!--    게시물 그리드뷰 리스트-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            >
+            <GridView
+                android:id="@+id/gridview"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:gravity="center"
+                android:numColumns="3"
+                >
+            </GridView>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+    <!--    하단바 - 이동버튼목록-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="3dp"
+        android:gravity="center"
+        >
+
+        <Button
+            android:id="@+id/btnMain"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:text="메인홈"
+            />
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:text="검색"
+            />
+        <Button
+            android:id="@+id/btnCard"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:text="글쓰기"
+            />
+        <Button
+            android:id="@+id/btnTimeLine"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:text="타임라인"
+            />
+        <Button
+            android:id="@+id/btnChat"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:text="채팅"
+            />
+
+    </LinearLayout>
 </LinearLayout>
