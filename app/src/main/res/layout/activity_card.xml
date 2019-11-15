@@ -1,12 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textID"
-        android:layout_width="wrap_content"
+<!--    상단바 이전버튼-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:background="#D1B6E1"
+        >
+        <Button
+            android:id="@+id/btnMyProfile"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:text="이전"
+            android:textSize="18dp"
+            android:textColor="#2E64FE"
+            app:backgroundTint="#FFFFFF"
+            />
+
+        <TextView
+            android:id="@+id/textNickname"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="5dp"
+            android:text="닉네임"
+            android:textSize="20dp"
+            android:textColor="#FFFFFF"
+            />
+    </LinearLayout>
+
+<!--    카드-->
+    <RelativeLayout
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:orientation="vertical"
+        android:layout_marginTop="2dp"
+        android:layout_gravity="center"
+        >
+
+
+        <ImageView
+            android:id="@+id/imgCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#000000"
+            android:src="@drawable/img1"
+            />
+
+        <TextView
+            android:id="@+id/textCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignBottom="@id/imgCard"
+            android:layout_alignLeft="@id/imgCard"
+            android:layout_alignRight="@id/imgCard"
+            android:layout_alignTop="@id/imgCard"
+            android:gravity="center"
+
+            android:paddingLeft="20dp"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textStyle="normal"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/textTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_alignBottom="@id/imgCard"
+            android:gravity="left"
+
+            android:background="#e3dede"
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:textStyle="normal"
+            android:typeface="serif" />
+
+    </RelativeLayout>
+
+<!--    댓글카드버튼, 공감버튼, 다운로드 버튼-->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="hihih"
-        />
+        android:orientation="horizontal"
+        >
+
+        <!--        댓글카드쓰기 버튼, 댓글 수-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="30dp"
+            >
+
+            <ImageButton
+                android:id="@+id/btnComment"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:background="@drawable/comment"
+                android:layout_marginTop="3dp"
+                />
+            <TextView
+                android:id="@+id/textComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="0"
+                android:textSize="25dp"
+                />
+        </LinearLayout>
+
+        <!--        공감 버튼, 공감 수-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            >
+
+            <ImageButton
+                android:id="@+id/btnHeart"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/emptyheart"
+                />
+            <TextView
+                android:id="@+id/textHeart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="0"
+                android:textSize="25dp"
+                />
+        </LinearLayout>
+
+        <!--        저장 버튼-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="190dp"
+            >
+
+            <ImageButton
+                android:id="@+id/btnDownload"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/download"
+                android:layout_marginTop="2dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+
+
+
 </LinearLayout>
