@@ -31,7 +31,7 @@
         <activity android:name=".WriteImageActivity"/>
         <activity android:name=".TimeLineActivity"/>
         <activity android:name=".ChatActivity"/>
-
+        <activity android:name=".CardActivity"/>
 
 
 
