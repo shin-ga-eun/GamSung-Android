@@ -116,10 +116,9 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:text="선택완료"
-            android:textColor="#df5285"
-            android:background="#e3dede"
-            android:textSize="17dp"
-            android:layout_marginTop="10dp"
+            android:textColor="#FFFFFF"
+            android:textSize="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="100dp"
             />
 
@@ -130,8 +129,8 @@
             android:text="완료"
             android:textColor="#FFFFFF"
             android:background="#df5285"
-            android:textSize="17dp"
-            android:layout_marginTop="10dp"
+            android:textSize="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="30dp"
             android:visibility="invisible"
             />

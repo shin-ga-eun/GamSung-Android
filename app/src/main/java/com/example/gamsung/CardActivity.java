@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CardActivity  extends AppCompatActivity {
 
     Long cardID; //그리드뷰로부터 받은 게시글번호 저장하는 변수
-    Button btnMyProfile;
+    Button btnMyProfile, btnNickname;
     ImageButton btnComment, btnHeart, btnDownload;
     TextView textCard, textTime;
     TextView textComment, textHeart;
@@ -44,6 +44,7 @@ public class CardActivity  extends AppCompatActivity {
         textComment = (TextView)findViewById(R.id.textComment);
         textHeart = (TextView)findViewById(R.id.textHeart);
         btnMyProfile = (Button)findViewById(R.id.btnMyProfile);
+        btnNickname = (Button)findViewById(R.id.btnNickname);
         btnComment = (ImageButton)findViewById(R.id.btnComment);
         btnHeart = (ImageButton)findViewById(R.id.btnHeart);
         btnDownload = (ImageButton)findViewById(R.id.btnDownload);
@@ -79,6 +80,16 @@ public class CardActivity  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        //닉네임버튼 클릭 시, 프로필 창으로
+        btnNickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (getApplicationContext(), MyProfileActivity.class);
+                startActivity(intent);
+
             }
         });
 
@@ -123,7 +134,59 @@ public class CardActivity  extends AppCompatActivity {
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
+                String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SotongCard";
+                final RelativeLayout capture = (RelativeLayout) findViewById(R.id.relativelayout);//캡쳐할영역
 
+                File file = new File(path);
+
+                if(!file.exists()){
+
+                    file.mkdirs();
+
+                    Toast.makeText(getApplicationContext(), "폴더가 생성되었습니다.", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+                SimpleDateFormat day = new SimpleDateFormat("yyyyMMddHHmmss");
+
+                Date date = new Date();
+
+                capture.buildDrawingCache();
+
+                Bitmap captureview = capture.getDrawingCache();
+
+
+
+                FileOutputStream fos = null;
+
+                try{
+
+                    fos = new FileOutputStream(path+"/Capture"+day.format(date)+".jpeg");
+
+                    captureview.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+
+                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path + "/Capture" + day.format(date) + ".JPEG")));
+
+                    Toast.makeText(getApplicationContext(), "저장완료", Toast.LENGTH_SHORT).show();
+
+                    fos.flush();
+
+                    fos.close();
+
+                    capture.destroyDrawingCache();
+
+                } catch (FileNotFoundException e) {
+
+                    e.printStackTrace();
+
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+
+                }
+                */
             }
         });
 
