@@ -32,7 +32,9 @@
         <activity android:name=".TimeLineActivity"/>
         <activity android:name=".ChatActivity"/>
         <activity android:name=".CardActivity"/>
-
+        <activity android:name=".CardCommentWriteActivity"/>
+        <activity android:name=".CardCommentWriteImageActivity"/>
+        CardCommentWriteImageActivity
 
 
     </application>

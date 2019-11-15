@@ -28,7 +28,7 @@ public class CardActivity  extends AppCompatActivity {
     CardRecyclerViewAdapter adapter;
     ArrayList<CardRecyclerItem> cardlist = new ArrayList<>();
 
-    boolean heart = false; //공감버튼을 위한 토글변수
+    boolean heart = false; //공감버튼을 위한 토글변수 -> 서버에서 가져올 boolean 값
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,10 @@ public class CardActivity  extends AppCompatActivity {
         cardlist.add(new CardRecyclerItem(R.drawable.img2, "아이유",12,"2019.11.16"));
 
 
+        //댓글 리사이클러 뷰 갯수 == 댓글 수
+        int commentNum = adapter.getItemCount();
+        textComment.setText(""+commentNum);
+
         //이전버튼 클릭 시, 내프로필 창으로
         btnMyProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,14 +81,17 @@ public class CardActivity  extends AppCompatActivity {
                 finish();
             }
         });
+
         //댓글버튼 클릭 시, 카드쓰기 창으로
-        btnHeart.setOnClickListener(new View.OnClickListener() {
+        btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent (getApplicationContext(), WriteActivity.class);
+                startActivity(intent);
 
             }
         });
+
         //공감버튼 클릭 시, 공감수 1증가
         btnHeart.setOnClickListener(new View.OnClickListener() {
             @Override
