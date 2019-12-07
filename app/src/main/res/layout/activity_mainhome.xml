@@ -128,45 +128,11 @@
 
                 </LinearLayout>
 
-                <!-- 세 번째 페이지. content3, listview3 -->
-                <LinearLayout
-                    android:id="@+id/content3"
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:orientation="vertical">
-
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="500dp"
-                        android:layout_marginTop="10dp"
-                        android:orientation="vertical"
-                        >
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="490dp"
-                            android:orientation="vertical"
-                            >
-                            <ListView
-                                android:id="@+id/listview3"
-                                android:layout_width="match_parent"
-                                android:layout_height="490dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginRight="15dp"
-                                android:choiceMode="singleChoice"
-                                >
-
-                            </ListView>
-                        </LinearLayout>
-                    </ScrollView>
-
-
-                </LinearLayout>
             </FrameLayout>
         </LinearLayout>
     </TabHost>
 
-<!--    하단바 - 이동버튼목록-->
+    <!--    하단바 - 이동버튼목록-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="47dp"
@@ -180,7 +146,7 @@
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:text="메인홈"
-        />
+            />
         <Button
             android:id="@+id/btnSearch"
             android:layout_width="80dp"

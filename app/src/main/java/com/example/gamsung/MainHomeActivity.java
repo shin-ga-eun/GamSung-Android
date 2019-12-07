@@ -75,8 +75,8 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
         });
 
         ////////////////////////////////////////////////////////////adapter//////////////
-        final MainHomeListViewAdapter adapter1, adapter2, adapter3;
-        final ListView listview1, listview2, listview3;
+        final MainHomeListViewAdapter adapter1, adapter2;
+        final ListView listview1, listview2;
 
         adapter1 = new MainHomeListViewAdapter(this);
         listview1 = (ListView) findViewById(R.id.listview1);
@@ -86,9 +86,6 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
         listview2 = (ListView) findViewById(R.id.listview2);
         listview2.setAdapter(adapter2);
 
-        adapter3 = new MainHomeListViewAdapter(this);
-        listview3 = (ListView) findViewById(R.id.listview3);
-        listview3.setAdapter(adapter3);
 
         ////////////////////////////////////////////////////////////탭호스트////////////
         TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
@@ -97,20 +94,15 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
         // 첫 번째 Tab
         TabHost.TabSpec ts1 = tabHost.newTabSpec("Tab Spec 1");
         ts1.setContent(R.id.content1);
-        ts1.setIndicator("관심있는");
+        ts1.setIndicator("인기있는");
         tabHost.addTab(ts1);
 
         // 두 번째 Tab
         TabHost.TabSpec ts2 = tabHost.newTabSpec("Tab Spec 2");
         ts2.setContent(R.id.content2);
-        ts2.setIndicator("인기있는");
+        ts2.setIndicator("새로운");
         tabHost.addTab(ts2);
 
-        // 세 번째 Tab
-        TabHost.TabSpec ts3 = tabHost.newTabSpec("Tab Spec 3");
-        ts3.setContent(R.id.content3);
-        ts3.setIndicator("새로운");
-        tabHost.addTab(ts3);
 
         tabHost.setCurrentTab(0);
 
@@ -129,12 +121,7 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
             }
         });
 
-        listview3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            }
-        });
 
         //리스트뷰 추가 -> 서버와 연결해서 데이터를 받아오는 부분//////////////////////
         adapter1.addItem("해시네임");
@@ -144,15 +131,13 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
         adapter2.addItem("인기있는");
         adapter2.addItem("popular");
 
-        adapter3.addItem("새로운");
-
     }
-        //리스트뷰에서 탭 선택시, 해당 탭으로 화면 전환/////////////////////////
-        @Override
-        public void onListBtnClick(String name){
-            Intent intent = new Intent(getApplicationContext(),HashTagActivity.class);
-            intent.putExtra("name",name); //탭 name 데이터를 넘겨준다
+    //리스트뷰에서 탭 선택시, 해당 탭으로 화면 전환/////////////////////////
+    @Override
+    public void onListBtnClick(String name){
+        Intent intent = new Intent(getApplicationContext(),HashTagActivity.class);
+        intent.putExtra("name",name); //탭 name 데이터를 넘겨준다
 
-            startActivity(intent);
+        startActivity(intent);
     }
 }

@@ -91,10 +91,10 @@
         >
 
         <Button
-            android:id="@+id/btnSignUpTag"
+            android:id="@+id/btnLogin"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:text="다음"
+            android:text="완료"
             android:textColor="#FFFFFF"
             android:background="#df5285"
             android:textSize="17dp"

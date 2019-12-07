@@ -23,7 +23,7 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
     private Uri mImageCaptureUri;
 
     private ImageView imgUser;
-    private Button btnImgSelect, btnSignUpTag;
+    private Button btnImgSelect, btnLogin;
 
 
     @Override
@@ -34,14 +34,14 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
 
         btnImgSelect = (Button) findViewById(R.id.btnImgSelect);
         imgUser = (ImageView) findViewById(R.id.imgUser);
-        btnSignUpTag = (Button) findViewById(R.id.btnSignUpTag);
+        btnLogin = (Button)findViewById(R.id.btnLogin);
 
         btnImgSelect.setOnClickListener(this);
 
-        btnSignUpTag.setOnClickListener(new OnClickListener() {
+        btnLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),SignUpTagActivity.class);
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
             }
         });
