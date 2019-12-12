@@ -3,6 +3,9 @@
     package="com.example.gamsung">
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
 
     <application
         android:allowBackup="true"
@@ -21,7 +24,6 @@
         <activity android:name=".IntroActivity"/>
         <activity android:name=".LoginActivity"/>
         <activity android:name=".SignUpActivity"/>
-        <activity android:name=".SignUpTagActivity"/>
         <activity android:name=".MainHomeActivity"/>
         <activity android:name=".SignUpProfileActivity"/>
         <activity android:name=".MyProfileActivity"/>
