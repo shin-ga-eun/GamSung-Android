@@ -4,33 +4,57 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.example.gamsung.network.NetRetrofit;
+
 import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignUpProfileActivity extends Activity implements OnClickListener
 {
+
+    RequestBody body2;
+    MultipartBody.Part body;
+
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_CAMERA = 2;
     private Uri mImageCaptureUri;
+    String filepath="";//이미지 경로
 
     private ImageView imgUser;
     private Button btnImgSelect, btnLogin;
-
+    String json;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signupprofile);
+
+        Intent inIntent = getIntent();
+        json = inIntent.getStringExtra("json"); ////////////////////////////서버에 넘길 json 값
+
+        Log.d("gggggggg",json);
 
         btnImgSelect = (Button) findViewById(R.id.btnImgSelect);
         imgUser = (ImageView) findViewById(R.id.imgUser);
@@ -41,8 +65,34 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
         btnLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(intent);
+
+                Call<ResponseBody> response = NetRetrofit.getInstance().getNetRetrofitInterface().signUp(body, body2);
+
+                Log.d("Body : " , body.toString());
+                Log.d("Body2 : ", body2.toString());
+                Log.d("Response", response.toString());
+
+                response.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        //Log.d("im here : " , response.body().toString());
+
+
+                        if(response.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "이미지 업로드 성공", Toast.LENGTH_LONG).show();
+                            Log.d("Success : " , response.body().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "이미지 업로드 실패"+t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                //Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                //startActivity(intent);
             }
         });
 
@@ -71,6 +121,22 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
         startActivityForResult(intent, PICK_FROM_ALBUM);
     }
 
+    private String getRealPathFromURI(Uri contentURI) {
+        String filePath;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) {
+            filePath = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            filePath = cursor.getString(idx);
+            cursor.close();
+        }
+        return filePath;
+    }
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -90,14 +156,33 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
                     Bitmap photo = extras.getParcelable("data");
                     imgUser.setImageBitmap(photo);
                 }
-                // 임시 파일 삭제
-                File f = new File(mImageCaptureUri.getPath());
-                if(f.exists())
+                // 임시 파일 삭제 --> multipart로 수정중
+
+                File file = new File(getRealPathFromURI(mImageCaptureUri));
+
+                Log.d("ppppppppp",mImageCaptureUri.getPath());
+                Log.d("nnnnnnnnn",file.getName());
+
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                body = MultipartBody.Part.createFormData("imageFile", file.getName(), requestFile);
+
+                body2 = RequestBody.create(MediaType.parse("multipart/form-data"), json);
+
+
+//                MultipartBody.Part body2 = MultipartBody.Part.createFormData("json", json, res);
+
+                //MultipartBody.Part body2 = MultipartBody.Part.createFormData("json", json);
+//                Call<ResponseBody> call =
+
+                /*이미지뷰 정리-> 계속 남아있으면 다음 요청시에 에러 발생할 수 있음.
+                if(file.exists())
                 {
-                    f.delete();
+                    file.delete();
                 }
+                */
                 break;
             }
+
 
             case PICK_FROM_ALBUM:
             {

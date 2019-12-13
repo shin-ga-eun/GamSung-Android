@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import com.example.gamsung.controller.UserController;
+import com.example.gamsung.domain.dto.user.LoginDto;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class LoginActivity extends AppCompatActivity {
 
     Button btnStart, btnSignUp;
+    EditText editId, editPw;
+    private LoginDto loginDto;
+    private UserController userController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +27,18 @@ public class LoginActivity extends AppCompatActivity {
 
         btnStart = (Button)findViewById(R.id.btnStart);
         btnSignUp = (Button)findViewById(R.id.btnSignUp);
+        editId = (EditText)findViewById(R.id.editId);
+        editPw = (EditText)findViewById(R.id.editPw);
+
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                loginDto = new LoginDto(editId.getText().toString(), editPw.getText().toString());
+                //userController.login(loginDto);
+
+
                 Intent intent = new Intent(getApplicationContext(),MainHomeActivity.class);
                 startActivity(intent);
             }

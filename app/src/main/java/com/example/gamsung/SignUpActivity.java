@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,18 +14,28 @@ public class SignUpActivity extends AppCompatActivity
 {
 
     Button btnSignUpProfile;
-
+    EditText editId, editPw, editName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
         btnSignUpProfile = (Button)findViewById(R.id.btnSignUpProfile);
+        editId = (EditText)findViewById(R.id.editId);
+        editPw = (EditText)findViewById(R.id.editPw);
+        editName = (EditText)findViewById(R.id.editName);
+
 
         btnSignUpProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),SignUpProfileActivity.class);
+                String identity = editId.getText().toString();
+                String password = editPw.getText().toString();
+                String nickname = editName.getText().toString();
+
+                String json = "{\"identity\":\""+identity+"\",\"password\":\""+password+"\",\"nickname\":\""+nickname+"\"}";
+                intent.putExtra("json", json);
                 startActivity(intent);
             }
         });

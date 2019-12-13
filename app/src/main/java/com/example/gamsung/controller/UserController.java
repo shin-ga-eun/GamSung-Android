@@ -2,13 +2,6 @@ package com.example.gamsung.controller;
 
 import android.content.Context;
 
-import com.example.gamsung.domain.dto.user.SignUpDto;
-import com.example.gamsung.network.NetRetrofit;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class UserController {
 
     Context context;
@@ -17,8 +10,9 @@ public class UserController {
         this.context = context;
     }
 
-    public void signUp(SignUpDto signUpDto) {
-        Call<Void> response = NetRetrofit.getInstance().getNetRetrofitInterface().signUp(signUpDto);
+    /*
+    public void signUp(File file, String json) {
+        Call<FileInfo> response = NetRetrofit.getInstance().getNetRetrofitInterface().signUp(file, json);
 
         response.enqueue(new Callback<Void>() {
             @Override
@@ -32,4 +26,34 @@ public class UserController {
             }
         });
     }
+
+
+    public void login(LoginDto loginDto) {
+        Call<String> response = NetRetrofit.getInstance().getNetRetrofitInterface().login(loginDto);
+
+        response.enqueue(new Callback<LoginDto>() {
+            @Override
+            public void onResponse(Call<LoginDto> call, Response<LoginDto> response) {
+                if(response.isSuccessful()){
+                    //String result = response.body();
+
+                   //return result;
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginDto> call, Throwable t) {
+
+            }
+        });
+    }
+
+     */
+
+
+
+
+
 }
+
