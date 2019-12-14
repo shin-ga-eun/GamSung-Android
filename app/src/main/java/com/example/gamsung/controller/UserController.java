@@ -1,6 +1,17 @@
 package com.example.gamsung.controller;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.example.gamsung.domain.dto.user.LoginDto;
+import com.example.gamsung.domain.dto.user.LoginResponseDto;
+import com.example.gamsung.network.NetRetrofit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.example.gamsung.LoginActivity.loginCheck;
 
 public class UserController {
 
@@ -10,50 +21,36 @@ public class UserController {
         this.context = context;
     }
 
-    /*
-    public void signUp(File file, String json) {
-        Call<FileInfo> response = NetRetrofit.getInstance().getNetRetrofitInterface().signUp(file, json);
-
-        response.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-
-            }
-        });
-    }
-
 
     public void login(LoginDto loginDto) {
-        Call<String> response = NetRetrofit.getInstance().getNetRetrofitInterface().login(loginDto);
+        Call<LoginResponseDto> response = NetRetrofit.getInstance().getNetRetrofitInterface().login(loginDto);
 
-        response.enqueue(new Callback<LoginDto>() {
+        response.enqueue(new Callback<LoginResponseDto>() {
             @Override
-            public void onResponse(Call<LoginDto> call, Response<LoginDto> response) {
-                if(response.isSuccessful()){
-                    //String result = response.body();
-
-                   //return result;
-
+            public void onResponse(Call<LoginResponseDto> call, Response<LoginResponseDto> response) {
+                if (response.isSuccessful()) {
+                    loginCheck = response.body().getIdentity();
+                    Log.d("login check", loginCheck);
+                }else{
+                    loginCheck = "login fail";
+                    Log.d("login check", loginCheck);
                 }
             }
 
             @Override
-            public void onFailure(Call<LoginDto> call, Throwable t) {
+            public void onFailure(Call<LoginResponseDto> call, Throwable t) {
 
             }
         });
+
     }
 
-     */
-
-
-
-
-
 }
+
+
+
+
+
+
+
 

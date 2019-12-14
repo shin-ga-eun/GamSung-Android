@@ -39,7 +39,7 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_CAMERA = 2;
     private Uri mImageCaptureUri;
-    String filepath="";//이미지 경로
+
 
     private ImageView imgUser;
     private Button btnImgSelect, btnLogin;
@@ -76,8 +76,6 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                        //Log.d("im here : " , response.body().toString());
-
 
                         if(response.isSuccessful()){
                             Toast.makeText(getApplicationContext(), "이미지 업로드 성공", Toast.LENGTH_LONG).show();
@@ -91,8 +89,8 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
                     }
                 });
 
-                //Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -168,18 +166,6 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
 
                 body2 = RequestBody.create(MediaType.parse("multipart/form-data"), json);
 
-
-//                MultipartBody.Part body2 = MultipartBody.Part.createFormData("json", json, res);
-
-                //MultipartBody.Part body2 = MultipartBody.Part.createFormData("json", json);
-//                Call<ResponseBody> call =
-
-                /*이미지뷰 정리-> 계속 남아있으면 다음 요청시에 에러 발생할 수 있음.
-                if(file.exists())
-                {
-                    file.delete();
-                }
-                */
                 break;
             }
 
