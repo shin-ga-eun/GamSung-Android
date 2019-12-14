@@ -1,4 +1,4 @@
-package com.example.gamsung;
+package com.example.gamsung.MainHome;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.gamsung.R;
 
 import java.util.ArrayList;
 

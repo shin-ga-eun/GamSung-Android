@@ -1,4 +1,4 @@
-package com.example.gamsung;
+package com.example.gamsung.SignUp;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.gamsung.LoginActivity;
+import com.example.gamsung.R;
 import com.example.gamsung.network.NetRetrofit;
 
 import java.io.File;
@@ -89,7 +91,7 @@ public class SignUpProfileActivity extends Activity implements OnClickListener
                     }
                 });
 
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });

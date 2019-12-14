@@ -8,6 +8,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.gamsung.MainHome.MyProfile.MyProfileActivity;
+import com.example.gamsung.MainHome.Write.WriteActivity;
+
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;

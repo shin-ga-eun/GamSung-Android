@@ -1,13 +1,13 @@
-package com.example.gamsung;
+package com.example.gamsung.MainHome.MyProfile;
 
-public class HashTagGridViewItem {
+public class MyProfileGridViewItem {
 
     private int img; //카드이미지
     private String content; //카드내용
     private int fontSize; //폰트크기
 //    private int CardNum; //카드게시글넘버
 
-    public HashTagGridViewItem(int img, String content, int fontSize){
+    public MyProfileGridViewItem(int img, String content, int fontSize){
         this.img = img;
         this.content = content;
         this.fontSize = fontSize;

@@ -1,6 +1,8 @@
-package com.example.gamsung;
+package com.example.gamsung.MainHome.UserSearch;
 
 import android.os.Bundle;
+
+import com.example.gamsung.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 

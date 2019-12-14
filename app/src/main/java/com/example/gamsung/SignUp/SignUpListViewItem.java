@@ -1,7 +1,6 @@
-package com.example.gamsung;
+package com.example.gamsung.SignUp;
 
-public class MainHomeListViewItem {
-
+public class SignUpListViewItem {
     private String strHashTagName; //해시태그이름
 
     public void setHashTagName(String name){

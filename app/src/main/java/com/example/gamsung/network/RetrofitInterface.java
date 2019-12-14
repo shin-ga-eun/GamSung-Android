@@ -1,5 +1,6 @@
 package com.example.gamsung.network;
 
+import com.example.gamsung.domain.dto.tag.TagSaveDto;
 import com.example.gamsung.domain.dto.user.LoginDto;
 import com.example.gamsung.domain.dto.user.LoginResponseDto;
 
@@ -19,7 +20,15 @@ public interface RetrofitInterface {
     @POST("/signUp")
     Call<ResponseBody> signUp(@Part MultipartBody.Part imageFile, @Part("signUpDto") RequestBody json);
 
-    @POST("login")
+    @POST("/login")
     Call<LoginResponseDto> login(@Body LoginDto loginDto);
+
+    @Multipart
+    @POST("/saveCard")
+    Call<ResponseBody> saveCard(@Part MultipartBody.Part imageFile, @Part("cardSaveDto") RequestBody json);
+
+    @POST("/saveTag")
+    Call<Void> saveTag(@Body TagSaveDto tagSaveDto);
+
 
 }

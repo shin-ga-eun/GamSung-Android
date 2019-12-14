@@ -1,4 +1,4 @@
-package com.example.gamsung;
+package com.example.gamsung.MainHome.HashSearch;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.example.gamsung.MainHome.HashSearch.HashList.HashTagActivity;
+import com.example.gamsung.MainHome.MainHomeActivity;
+import com.example.gamsung.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -74,7 +78,7 @@ public class HashSearchActivity extends AppCompatActivity implements HashSearchL
 
         @Override
         public void onListBtnClick(String name){
-            Intent intent = new Intent(getApplicationContext(),HashTagActivity.class); //어디로이동?????????????????????????????
+            Intent intent = new Intent(getApplicationContext(), HashTagActivity.class); //어디로이동?????????????????????????????
             intent.putExtra("name",name); //탭 name 데이터를 넘겨준다
 
             startActivity(intent);

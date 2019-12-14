@@ -1,7 +1,9 @@
-package com.example.gamsung;
+package com.example.gamsung.MainHome.MyProfile;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +18,15 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.gamsung.CardActivity;
+import com.example.gamsung.LoginActivity;
+import com.example.gamsung.MainHome.HashSearch.HashSearchActivity;
+import com.example.gamsung.MainHome.MainHomeActivity;
+import com.example.gamsung.MainHome.UserSearch.TimeLineActivity;
+import com.example.gamsung.MainHome.Write.WriteActivity;
+import com.example.gamsung.R;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,9 +41,12 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
     private static final int CROP_FROM_CAMERA = 2;
     private Uri mImageCaptureUri;
 
+    private SharedPreferences userInfo;
+    private SharedPreferences.Editor loginEditor;
+
     GridView gridview;
     Button btnMainHome;
-    Button btnMain, btnSearch, btnCard, btnTimeLine, btnChat; // 하단버튼목록들
+    Button btnMain, btnSearch, btnCard, btnTimeLine, btnLogout; // 하단버튼목록들
     ImageButton btnImgModify , btnProfileModify;
     TextView textNickname, textTodayView, textTotalView, textProfile;
     ImageView ImgProfile;
@@ -128,7 +142,10 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         btnSearch = (Button) findViewById(R.id.btnSearch);
         btnCard = (Button) findViewById(R.id.btnCard);
         btnTimeLine = (Button) findViewById(R.id.btnTimeLine);
-        btnChat = (Button) findViewById(R.id.btnChat);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
+
+        userInfo=getSharedPreferences("UserInformation", Activity.MODE_PRIVATE);
+        loginEditor = userInfo.edit();
 
         btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,11 +175,15 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
                 startActivity(intent);
             }
         });
-        btnChat.setOnClickListener(new View.OnClickListener() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-                startActivity(intent);
+                loginEditor.putString("identity","");
+                loginEditor.commit();
+                Toast.makeText(getApplicationContext(), "로그아웃 성공", Toast.LENGTH_LONG).show();
+
+                Intent Logout=new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(Logout);
             }
         });
 

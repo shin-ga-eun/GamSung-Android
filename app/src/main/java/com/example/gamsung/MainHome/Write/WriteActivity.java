@@ -1,4 +1,4 @@
-package com.example.gamsung;
+package com.example.gamsung.MainHome.Write;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.example.gamsung.MainHome.MainHomeActivity;
+import com.example.gamsung.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 

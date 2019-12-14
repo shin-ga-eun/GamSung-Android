@@ -1,13 +1,15 @@
-package com.example.gamsung;
+package com.example.gamsung.MainHome.Write;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,17 +17,39 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gamsung.MainHome.MyProfile.MyProfileActivity;
+import com.example.gamsung.R;
+import com.example.gamsung.controller.CardController;
+import com.example.gamsung.domain.dto.tag.TagSaveDto;
+import com.example.gamsung.network.NetRetrofit;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.example.gamsung.LoginActivity.loginCheck;
 
 //카드작성 페이지2
 //서버로 넘길 데이터-> imgCard, content, fontSize, hasharray
 public class WriteImageActivity extends AppCompatActivity implements View.OnClickListener {
+
+    RequestBody body2; //cardSaveDto-> content, fontSize, identity
+    MultipartBody.Part body; //imgCard
+    String json; //서버에 보낼 json
+    Long cno; //서버에서 받을 cno
+    private TagSaveDto tagSaveDto;
+    private CardController cardController;
 
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
@@ -40,7 +64,7 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
     ImageButton btnGallery, btnCheck;
 
     String content; //카드내용 받는 변수
-    int fontSize; //폰트크기 받는 변수
+    int fontSize = 15; //폰트크기 받는 변수
     ArrayList<String> hasharray; //해시태그배열 변수
 
     @Override
@@ -54,6 +78,7 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
         btnWrite = (Button)findViewById(R.id.btnWrite);
         btnCheck = (ImageButton)findViewById(R.id.btnCheck);
         btnGallery = (ImageButton)findViewById(R.id.btnGallery);
+        cardController = new CardController(getApplicationContext());
 
         //갤러리이동
         btnGallery.setOnClickListener(this);
@@ -94,16 +119,6 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
 
         chipGroup.setVisibility(View.VISIBLE);
 
-
-        //완료체크 버튼 클릭 시, 마이프로필 페이지로 이동
-        btnCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MyProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-
         //폰트크기조절 버튼// 크게->작게->원본
         btnFont.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +143,54 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
 
             }
         });
+
+        //완료체크 버튼 클릭 시, 마이프로필 페이지로 이동
+        btnCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Call<ResponseBody> response = NetRetrofit.getInstance().getNetRetrofitInterface().saveCard(body, body2);
+
+                Log.d("Response", response.toString());
+
+                response.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        if(response.isSuccessful()){
+                            try {
+                                String getServerCno = response.body().string();
+                                Log.d("Success : " , getServerCno);
+
+                                cno = Long.parseLong(getServerCno);
+                                Log.d("Success cno : " , ""+cno);
+
+                                for(int i=0; i<hasharray.size(); i++) {
+                                    Log.d("Success cnocno",""+cno);
+                                    tagSaveDto = new TagSaveDto(hasharray.get(i), cno);
+                                    cardController.saveTag(tagSaveDto);
+
+                                }
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Toast.makeText(getApplicationContext(), "카드 작성 성공", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "이미지 업로드 실패"+t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                Intent intent = new Intent(getApplicationContext(), MyProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
 
     }
@@ -156,6 +219,20 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
         startActivityForResult(intent, PICK_FROM_ALBUM);
     }
 
+    private String getRealPathFromURI(Uri contentURI) {
+        String filePath;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) {
+            filePath = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            filePath = cursor.getString(idx);
+            cursor.close();
+        }
+        return filePath;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -178,12 +255,24 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
                     imgCard.setImageBitmap(photo);
                     imgCard.setAlpha(0.5f);
                 }
-                // 임시 파일 삭제
-                File f = new File(mImageCaptureUri.getPath());
-                if(f.exists())
-                {
-                    f.delete();
-                }
+                // multipart/////////////////////////////////////////////////////////////////////////////////////////////
+                File file = new File(getRealPathFromURI(mImageCaptureUri));
+
+                Log.d("ppppppppp",mImageCaptureUri.getPath());
+                Log.d("nnnnnnnnn",file.getName());
+
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                body = MultipartBody.Part.createFormData("imageFile", file.getName(), requestFile);
+
+                json = "{\"identity\":\""+loginCheck+"\",\"content\":\""+content+"\",\"fontsize\":"+fontSize+"}";
+                Log.d("json",json);
+                body2 = RequestBody.create(MediaType.parse("multipart/form-data"), json);
+
+
+//                if(f.exists())
+//                {
+//                    f.delete();
+//                }
                 break;
             }
 

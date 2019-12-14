@@ -1,19 +1,32 @@
-package com.example.gamsung;
+package com.example.gamsung.MainHome;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.Toast;
+
+import com.example.gamsung.LoginActivity;
+import com.example.gamsung.MainHome.HashSearch.HashList.HashTagActivity;
+import com.example.gamsung.MainHome.HashSearch.HashSearchActivity;
+import com.example.gamsung.MainHome.MyProfile.MyProfileActivity;
+import com.example.gamsung.MainHome.UserSearch.TimeLineActivity;
+import com.example.gamsung.MainHome.Write.WriteActivity;
+import com.example.gamsung.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainHomeActivity extends AppCompatActivity implements MainHomeListViewAdapter.ListBtnClickListener{
 
     Button btnMyProfile;
-    Button btnMain, btnSearch, btnCard, btnTimeLine, btnChat; // 하단버튼목록들
+    Button btnMain, btnSearch, btnCard, btnTimeLine, btnLogout; // 하단버튼목록들
+    private SharedPreferences userInfo;
+    private SharedPreferences.Editor loginEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +49,10 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
         btnSearch = (Button) findViewById(R.id.btnSearch);
         btnCard = (Button) findViewById(R.id.btnCard);
         btnTimeLine = (Button) findViewById(R.id.btnTimeLine);
-        btnChat = (Button) findViewById(R.id.btnChat);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
+
+        userInfo=getSharedPreferences("UserInformation", Activity.MODE_PRIVATE);
+        loginEditor = userInfo.edit();
 
         btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,11 +82,15 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
                 startActivity(intent);
             }
         });
-        btnChat.setOnClickListener(new View.OnClickListener() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-                startActivity(intent);
+                loginEditor.putString("identity","");
+                loginEditor.commit();
+
+                Toast.makeText(getApplicationContext(), "로그아웃 성공", Toast.LENGTH_LONG).show();
+                Intent Logout=new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(Logout);
             }
         });
 
@@ -135,7 +155,7 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
     //리스트뷰에서 탭 선택시, 해당 탭으로 화면 전환/////////////////////////
     @Override
     public void onListBtnClick(String name){
-        Intent intent = new Intent(getApplicationContext(),HashTagActivity.class);
+        Intent intent = new Intent(getApplicationContext(), HashTagActivity.class);
         intent.putExtra("name",name); //탭 name 데이터를 넘겨준다
 
         startActivity(intent);

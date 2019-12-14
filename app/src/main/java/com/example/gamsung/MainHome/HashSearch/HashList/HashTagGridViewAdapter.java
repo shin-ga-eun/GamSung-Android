@@ -1,4 +1,4 @@
-package com.example.gamsung;
+package com.example.gamsung.MainHome.HashSearch.HashList;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,27 +9,29 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.gamsung.R;
+
 import java.util.ArrayList;
 
 //서버로부터 이미지 받아와야함
-public class MyProfileGridViewAdapter extends BaseAdapter {
+public class HashTagGridViewAdapter extends BaseAdapter {
 
     private Context context;
-    private ArrayList<MyProfileGridViewItem> myprofileList;
+    private ArrayList<HashTagGridViewItem> hashtaglist;
 
-    public MyProfileGridViewAdapter(Context context, ArrayList<MyProfileGridViewItem> myprofileList){
+    public HashTagGridViewAdapter(Context context, ArrayList<HashTagGridViewItem> myprofileList){
         this.context = context;
-        this.myprofileList = myprofileList;
+        this.hashtaglist = myprofileList;
     }
 
     @Override
     public int getCount() {
-        return myprofileList.size();
+        return hashtaglist.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return myprofileList.get(position);
+        return hashtaglist.get(position);
     }
 
     @Override
@@ -47,14 +49,14 @@ public class MyProfileGridViewAdapter extends BaseAdapter {
         ImageView imgCard = (ImageView)row.findViewById(R.id.imgCard);
         TextView textContent = (TextView)row.findViewById(R.id.textContent);
 
-        MyProfileGridViewItem myProfileGridViewItem = myprofileList.get(position);
+        HashTagGridViewItem hashTagGridViewItem = hashtaglist.get(position);
 
-        imgCard.setImageResource(myProfileGridViewItem.getImg());
+        imgCard.setImageResource(hashTagGridViewItem.getImg());
         imgCard.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imgCard.setAlpha(0.5f);
         imgCard.setPadding(5,5,5,5);
-        textContent.setText(myProfileGridViewItem.getContent());
-        int fontSize = (int)((myProfileGridViewItem.getFontSize()) * 0.6);
+        textContent.setText(hashTagGridViewItem.getContent());
+        int fontSize = (int)((hashTagGridViewItem.getFontSize()) * 0.6);
         textContent.setTextSize(fontSize);
 
         return row;

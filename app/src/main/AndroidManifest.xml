@@ -26,17 +26,17 @@
         </activity>
         <activity android:name=".IntroActivity"/>
         <activity android:name=".LoginActivity"/>
-        <activity android:name=".SignUpActivity"/>
-        <activity android:name=".MainHomeActivity"/>
-        <activity android:name=".SignUpProfileActivity"/>
-        <activity android:name=".MyProfileActivity"/>
-        <activity android:name=".HashTagActivity"/>
+        <activity android:name=".SignUp.SignUpActivity"/>
+        <activity android:name=".MainHome.MainHomeActivity"/>
+        <activity android:name=".SignUp.SignUpProfileActivity"/>
+        <activity android:name=".MainHome.MyProfile.MyProfileActivity"/>
+        <activity android:name=".MainHome.HashSearch.HashList.HashTagActivity"/>
 
-        <activity android:name=".HashSearchActivity"/>
-        <activity android:name=".WriteActivity"/>
-        <activity android:name=".WriteImageActivity"/>
-        <activity android:name=".TimeLineActivity"/>
-        <activity android:name=".ChatActivity"/>
+        <activity android:name=".MainHome.HashSearch.HashSearchActivity"/>
+        <activity android:name=".MainHome.Write.WriteActivity"/>
+        <activity android:name=".MainHome.Write.WriteImageActivity"/>
+        <activity android:name=".MainHome.UserSearch.TimeLineActivity"/>
+        <activity android:name=".MainHome.Logout.LogoutActivity"/>
         <activity android:name=".CardActivity"/>
         <activity android:name=".CardCommentWriteActivity"/>
         <activity android:name=".CardCommentWriteImageActivity"/>

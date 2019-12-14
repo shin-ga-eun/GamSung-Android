@@ -1,4 +1,4 @@
-package com.example.gamsung;
+package com.example.gamsung.MainHome.HashSearch;
 
 public class HashSearchListViewItem {
 

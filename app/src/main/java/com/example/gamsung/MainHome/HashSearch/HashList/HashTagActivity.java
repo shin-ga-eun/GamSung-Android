@@ -1,4 +1,4 @@
-package com.example.gamsung;
+package com.example.gamsung.MainHome.HashSearch.HashList;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+
+import com.example.gamsung.CardActivity;
+import com.example.gamsung.R;
 
 import java.util.ArrayList;
 

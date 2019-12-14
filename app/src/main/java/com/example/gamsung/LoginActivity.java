@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.gamsung.MainHome.MainHomeActivity;
+import com.example.gamsung.SignUp.SignUpActivity;
 import com.example.gamsung.controller.UserController;
 import com.example.gamsung.domain.dto.user.LoginDto;
 
@@ -63,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this,"로그인 성공", Toast.LENGTH_SHORT).show();
 
 
-                            Intent intent = new Intent(getApplicationContext(),MainHomeActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), MainHomeActivity.class);
                             startActivity(intent);
                         }
                         else{
@@ -77,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
                 startActivity(intent);
             }
         });
