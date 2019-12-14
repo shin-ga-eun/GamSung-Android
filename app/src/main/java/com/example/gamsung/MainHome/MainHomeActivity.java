@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -18,10 +19,21 @@ import com.example.gamsung.MainHome.MyProfile.MyProfileActivity;
 import com.example.gamsung.MainHome.UserSearch.TimeLineActivity;
 import com.example.gamsung.MainHome.Write.WriteActivity;
 import com.example.gamsung.R;
+import com.example.gamsung.controller.TagController;
+import com.example.gamsung.domain.dto.tag.GetTagDto;
+import com.example.gamsung.network.NetRetrofit;
+
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainHomeActivity extends AppCompatActivity implements MainHomeListViewAdapter.ListBtnClickListener{
+
+    private GetTagDto getTagDto;
+    private TagController tagController;
 
     Button btnMyProfile;
     Button btnMain, btnSearch, btnCard, btnTimeLine, btnLogout; // 하단버튼목록들
@@ -144,12 +156,54 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
 
 
         //리스트뷰 추가 -> 서버와 연결해서 데이터를 받아오는 부분//////////////////////
-        adapter1.addItem("해시네임");
-        adapter1.addItem("해시네임");
-        adapter1.addItem("해시네임");
+        //getPopular adapter additem
+        Call<List<GetTagDto>> response= NetRetrofit.getInstance().getNetRetrofitInterface().getPopular();
+        response.enqueue(new Callback<List<GetTagDto>>() {
+            @Override
+            public void onResponse(Call<List<GetTagDto>> call, Response<List<GetTagDto>> response) {
+                if(response.isSuccessful()) {
+                    Log.d("getPopular in tagController", "여기 들어와써여");
+                    List<GetTagDto> resource = response.body();
 
-        adapter2.addItem("인기있는");
-        adapter2.addItem("popular");
+                    for(GetTagDto getTagDto: resource){
+                        adapter1.addItem(getTagDto.getTagname());
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<GetTagDto>> call, Throwable t) {
+
+            }
+
+        });
+
+        //getNew adapter additem
+        Call<List<GetTagDto>> response2= NetRetrofit.getInstance().getNetRetrofitInterface().getNew();
+        response2.enqueue(new Callback<List<GetTagDto>>() {
+            @Override
+            public void onResponse(Call<List<GetTagDto>> call, Response<List<GetTagDto>> response) {
+                if(response.isSuccessful()) {
+                    Log.d("getPopular in tagController", "여기 들어와써여");
+                    List<GetTagDto> resource = response.body();
+
+                    for(GetTagDto getTagDto: resource){
+                        adapter2.addItem(getTagDto.getTagname());
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<GetTagDto>> call, Throwable t) {
+
+            }
+
+        });
+
 
     }
     //리스트뷰에서 탭 선택시, 해당 탭으로 화면 전환/////////////////////////
