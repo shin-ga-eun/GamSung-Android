@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     Button btnStart, btnSignUp;
     EditText editId, editPw;
     private LoginDto loginDto;
-    //private LoginResponseDto loginResponseDto;
     private UserController userController;
 
     public static String loginCheck; //전역변수 선언 -> 로그인 성공 시, 아이디값을 공유하기 위함

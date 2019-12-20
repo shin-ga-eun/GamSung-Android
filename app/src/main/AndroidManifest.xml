@@ -35,7 +35,7 @@
         <activity android:name=".MainHome.HashSearch.HashSearchActivity"/>
         <activity android:name=".MainHome.Write.WriteActivity"/>
         <activity android:name=".MainHome.Write.WriteImageActivity"/>
-        <activity android:name=".MainHome.UserSearch.TimeLineActivity"/>
+        <activity android:name=".MainHome.UserSearch.UserSearchActivity"/>
         <activity android:name=".MainHome.Logout.LogoutActivity"/>
         <activity android:name=".CardActivity"/>
         <activity android:name=".CardCommentWriteActivity"/>

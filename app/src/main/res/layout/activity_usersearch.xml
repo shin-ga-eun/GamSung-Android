@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--    상단바-btnMyProfile, 앱이름-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#D1B6E1"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/btnMainHome"
+            android:layout_width="75dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="3dp"
+            app:backgroundTint="#FBFFB9"
+            android:text="메인홈"
+            android:textColor="#791E94"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="90dp"
+            android:text="소 통,"
+            android:textSize="25dp"
+            android:textColor="#FFFFFF"
+            />
+    </LinearLayout>
+
+
+    <!--    검색창 - 검색edit, 검색버튼 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="사용자 @ "
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/edtHash"
+            android:layout_width="270dp"
+            android:layout_height="match_parent"
+            />
+        <Button
+            android:id="@+id/btnKeyword"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:text="검색"
+            android:layout_marginLeft="3dp"
+            android:background="#FFFFFF"
+            />
+
+    </LinearLayout>
+
+    <!--    검색내용 리스트뷰-->
+    <!--    (다중선택 기능) 태그 리스트-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="310dp"
+            android:orientation="vertical"
+            >
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="310dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:choiceMode="singleChoice"
+                >
+
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

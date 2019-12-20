@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -20,19 +21,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.gamsung.CardActivity;
 import com.example.gamsung.LoginActivity;
 import com.example.gamsung.MainHome.HashSearch.HashSearchActivity;
 import com.example.gamsung.MainHome.MainHomeActivity;
-import com.example.gamsung.MainHome.UserSearch.TimeLineActivity;
+import com.example.gamsung.MainHome.UserSearch.UserSearchActivity;
 import com.example.gamsung.MainHome.Write.WriteActivity;
 import com.example.gamsung.R;
+import com.example.gamsung.domain.dto.user.GetProfileDto;
+import com.example.gamsung.network.NetRetrofit;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyProfileActivity  extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,6 +51,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
     private SharedPreferences userInfo;
     private SharedPreferences.Editor loginEditor;
 
+
     GridView gridview;
     Button btnMainHome;
     Button btnMain, btnSearch, btnCard, btnTimeLine, btnLogout; // 하단버튼목록들
@@ -53,12 +61,19 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
     EditText dlgEdtProfile;
 
     View dialogView;
-    String contentProfile; //자기소개변수
+    String identity; //로그인 사용자 identity
+    Long uno; //로그인 사용자 uno ??
+    String imageUrl; //사용자 프로필 이미지 uri
+    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myprofile);
+
+        //로그인 사용자 identity 가져오기 -> getSharedPreferences()
+        userInfo=getSharedPreferences("UserInformation", Activity.MODE_PRIVATE);
+        identity = userInfo.getString("identity",null);
 
         ////////게시물 그리드뷰 /////////////////////////////////////////////////////////////////////서버에서 게시글번호를 통해 데이터를 받아야하는지.
         gridview = (GridView)findViewById(R.id.gridview);
@@ -84,24 +99,19 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
             }
         });
 
-        ////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////참조획득/////////////////////////////
 
         btnMainHome = (Button)findViewById(R.id.btnMainHome);
         btnImgModify = (ImageButton)findViewById(R.id.btnImgModify);
         btnProfileModify = (ImageButton)findViewById(R.id.btnProfileModify);
+
         textNickname = (TextView)findViewById(R.id.textNickname);
         textTodayView = (TextView)findViewById(R.id.textTodayView);
         textTotalView = (TextView)findViewById(R.id.textTotalView);
         ImgProfile = (ImageView)findViewById(R.id.ImgProfile);
         textProfile = (TextView)findViewById(R.id.textProfile);
 
-        btnMainHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainHomeActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
         //프로필사진 수정버튼
         btnImgModify.setOnClickListener(this);
@@ -137,6 +147,62 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
             }
         });
 
+        //레트로핏 연동 -회원정보
+        Call<GetProfileDto> response= NetRetrofit.getInstance().getNetRetrofitInterface().getProfile(identity);
+        response.enqueue(new Callback<GetProfileDto>() {
+            @Override
+            public void onResponse(Call<GetProfileDto> call, Response<GetProfileDto> response) {
+                if(response.isSuccessful()) {
+                    Log.d("myProile controller", "여기 들어와써여");
+
+                    GetProfileDto getProfile = response.body();
+                    textNickname.setText(getProfile.getNickname());
+                    textProfile.setText(getProfile.getProfileText());
+                    textTodayView.setText(getProfile.getToday());
+                    textTotalView.setText(getProfile.getTotal());
+                    imageUrl = getProfile.getImageUrl();
+                    uno = getProfile.getUno();
+
+                    Log.d("myProfile imageUrl", imageUrl);
+                    Log.d("myProfile uno",uno.toString());
+
+                }
+
+            }
+            @Override
+            public void onFailure(Call<GetProfileDto> call, Throwable t) {
+
+            }
+
+        });
+
+        //프로필이미지 uri glide를 통해 넣기.
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Glide.with(getApplicationContext())
+                        .load(imageUrl) // image url
+                        .placeholder(R.drawable.isloading) // any placeholder to load at start
+                        .error(R.drawable.emptyheart)  // any image in case of error
+                        .override(180, 175) // resizing
+                        .centerCrop()
+                        .into(ImgProfile);  // imageview object
+                    }
+            }, 1800);
+
+
+
+        //상단 메인홈버튼
+        btnMainHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainHomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         /////////////////////////////////////////////////////////////하단버튼목록들////////
         btnMain = (Button) findViewById(R.id.btnMain);
         btnSearch = (Button) findViewById(R.id.btnSearch);
@@ -144,14 +210,10 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         btnTimeLine = (Button) findViewById(R.id.btnTimeLine);
         btnLogout = (Button) findViewById(R.id.btnLogout);
 
-        userInfo=getSharedPreferences("UserInformation", Activity.MODE_PRIVATE);
-        loginEditor = userInfo.edit();
-
         btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainHomeActivity.class);
-                startActivity(intent);
+
             }
         });
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +233,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         btnTimeLine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TimeLineActivity.class);
+                Intent intent = new Intent(getApplicationContext(), UserSearchActivity.class);
                 startActivity(intent);
             }
         });
@@ -186,6 +248,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
                 startActivity(Logout);
             }
         });
+
 
 
     }

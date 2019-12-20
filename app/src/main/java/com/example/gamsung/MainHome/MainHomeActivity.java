@@ -16,7 +16,7 @@ import com.example.gamsung.LoginActivity;
 import com.example.gamsung.MainHome.HashSearch.HashList.HashTagActivity;
 import com.example.gamsung.MainHome.HashSearch.HashSearchActivity;
 import com.example.gamsung.MainHome.MyProfile.MyProfileActivity;
-import com.example.gamsung.MainHome.UserSearch.TimeLineActivity;
+import com.example.gamsung.MainHome.UserSearch.UserSearchActivity;
 import com.example.gamsung.MainHome.Write.WriteActivity;
 import com.example.gamsung.R;
 import com.example.gamsung.controller.TagController;
@@ -69,8 +69,7 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
         btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainHomeActivity.class);
-                startActivity(intent);
+
             }
         });
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +77,7 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), HashSearchActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         btnCard.setOnClickListener(new View.OnClickListener() {
@@ -85,13 +85,15 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         btnTimeLine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TimeLineActivity.class);
+                Intent intent = new Intent(getApplicationContext(), UserSearchActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +105,7 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
                 Toast.makeText(getApplicationContext(), "로그아웃 성공", Toast.LENGTH_LONG).show();
                 Intent Logout=new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(Logout);
+                finish();
             }
         });
 

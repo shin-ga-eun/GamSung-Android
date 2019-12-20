@@ -6,12 +6,12 @@ import com.example.gamsung.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TimeLineActivity extends AppCompatActivity {
+public class UserSearchActivity extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timeline);
+        setContentView(R.layout.activity_usersearch);
     }
 }

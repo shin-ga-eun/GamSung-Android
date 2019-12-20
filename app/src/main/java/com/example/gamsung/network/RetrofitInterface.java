@@ -2,6 +2,7 @@ package com.example.gamsung.network;
 
 import com.example.gamsung.domain.dto.tag.GetTagDto;
 import com.example.gamsung.domain.dto.tag.TagSaveDto;
+import com.example.gamsung.domain.dto.user.GetProfileDto;
 import com.example.gamsung.domain.dto.user.LoginDto;
 import com.example.gamsung.domain.dto.user.LoginResponseDto;
 
@@ -16,6 +17,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface RetrofitInterface {
 
@@ -39,6 +41,9 @@ public interface RetrofitInterface {
 
     @GET("/getNew")
     Call<List<GetTagDto>> getNew();
+
+    @GET("/getProfile/{identity}")
+    Call<GetProfileDto> getProfile(@Path("identity") String identity);
 
 
 
