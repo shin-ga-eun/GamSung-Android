@@ -12,7 +12,7 @@ public class NetRetrofit {
     }
 
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.0.6:8080/")
+            .baseUrl("http://172.30.1.38:8080/")
             //Json 파일을 자바오브젝트로 변환시킬수 있게 Gson을 사용
             .addConverterFactory(GsonConverterFactory.create())
             .build();

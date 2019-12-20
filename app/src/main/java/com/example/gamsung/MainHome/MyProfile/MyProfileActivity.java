@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.gamsung.CardActivity;
 import com.example.gamsung.LoginActivity;
 import com.example.gamsung.MainHome.HashSearch.HashSearchActivity;
@@ -37,6 +38,7 @@ import com.example.gamsung.network.NetRetrofit;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -185,6 +187,21 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
                     Log.d("myProfile imageUrl", imageUrl);
                     Log.d("myProfile uno",uno.toString());
 
+                    //프로필이미지 uri Glide를 통해 넣기.
+
+                    Glide.with(getApplicationContext())
+                            .load(imageUrl) // image url
+                            //.signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(true)
+                            .placeholder(R.drawable.isloading) // any placeholder to load at start
+                            .error(R.drawable.emptyheart)  // any image in case of error
+                            .override(180, 175) // resizing
+                            .centerCrop()
+                            .into(ImgProfile);  // imageview object
+                    //ImgProfile.notify();
+                    Log.d("Glide imageUrl", imageUrl);
+
                 }
 
             }
@@ -196,6 +213,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         });
 
         //프로필이미지 uri Glide를 통해 넣기.
+        /*
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -213,6 +231,8 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
 
                 }
             }, 1800);
+
+         */
 
 
 
