@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StartActivity">
+        <activity android:name=".InitialActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,7 +36,6 @@
         <activity android:name=".MainHome.Write.WriteActivity"/>
         <activity android:name=".MainHome.Write.WriteImageActivity"/>
         <activity android:name=".MainHome.UserSearch.UserSearchActivity"/>
-        <activity android:name=".MainHome.Logout.LogoutActivity"/>
         <activity android:name=".CardActivity"/>
         <activity android:name=".CardCommentWriteActivity"/>
         <activity android:name=".CardCommentWriteImageActivity"/>

@@ -258,9 +258,6 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
                 // multipart/////////////////////////////////////////////////////////////////////////////////////////////
                 File file = new File(getRealPathFromURI(mImageCaptureUri));
 
-                Log.d("ppppppppp",mImageCaptureUri.getPath());
-                Log.d("nnnnnnnnn",file.getName());
-
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 body = MultipartBody.Part.createFormData("imageFile", file.getName(), requestFile);
 

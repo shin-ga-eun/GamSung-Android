@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +40,10 @@ import java.util.ArrayList;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,6 +67,10 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
     ImageView ImgProfile;
     EditText dlgEdtProfile;
 
+    RequestBody body2; //userUpdateDto -> identity
+    MultipartBody.Part body; //imgCard
+    String json; //서버에 보낼 json
+
     View dialogView;
     String identity; //로그인 사용자 identity
     Long uno; //로그인 사용자 uno ??
@@ -77,6 +86,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
 
         //로그인 사용자 identity 가져오기 -> getSharedPreferences()
         userInfo=getSharedPreferences("UserInformation", Activity.MODE_PRIVATE);
+
         identity = userInfo.getString("identity",null);
 
         userController = new UserController(getApplicationContext());
@@ -142,6 +152,8 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
 
                         userUpdateDto = new UserUpdateDto(identity, textProfile.getText().toString());
                         userController.userUpdate(userUpdateDto);
+
+
                     }
                 });
 
@@ -161,7 +173,6 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
             @Override
             public void onResponse(Call<GetProfileDto> call, Response<GetProfileDto> response) {
                 if(response.isSuccessful()) {
-                    Log.d("myProile controller", "여기 들어와써여");
 
                     GetProfileDto getProfile = response.body();
                     textNickname.setText(getProfile.getNickname());
@@ -184,7 +195,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
 
         });
 
-        //프로필이미지 uri glide를 통해 넣기.
+        //프로필이미지 uri Glide를 통해 넣기.
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -196,7 +207,11 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
                         .override(180, 175) // resizing
                         .centerCrop()
                         .into(ImgProfile);  // imageview object
-                    }
+
+                Log.d("Glide imageUrl", imageUrl);
+
+
+                }
             }, 1800);
 
 
@@ -285,6 +300,20 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         startActivityForResult(intent, PICK_FROM_ALBUM);
     }
 
+    private String getRealPathFromURI(Uri contentURI) {
+        String filePath;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) {
+            filePath = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            filePath = cursor.getString(idx);
+            cursor.close();
+        }
+        return filePath;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -308,11 +337,36 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
 //                    ImgProfile.setAlpha(0.5f);
                 }
                 // 임시 파일 삭제
-                File f = new File(mImageCaptureUri.getPath());
-                if(f.exists())
-                {
-                    f.delete();
-                }
+                // multipart/////////////////////////////////////////////////////////////////////////////////////////////
+                File file = new File(getRealPathFromURI(mImageCaptureUri));
+
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                body = MultipartBody.Part.createFormData("imageFile", file.getName(), requestFile);
+
+                json = "{\"identity\":\""+identity+"\""+"}";
+                Log.d("json",json);
+                body2 = RequestBody.create(MediaType.parse("multipart/form-data"), json);
+
+                //회원정보 이미지 수정 retrofit 연동
+                Call<ResponseBody> response = NetRetrofit.getInstance().getNetRetrofitInterface().userImageUpdate(body, body2);
+                response.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        if(response.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "프로필 수정 성공", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "이미지 업로드 실패"+t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+//                if(f.exists())
+//                {
+//                    f.delete();
+//                }
                 break;
             }
 

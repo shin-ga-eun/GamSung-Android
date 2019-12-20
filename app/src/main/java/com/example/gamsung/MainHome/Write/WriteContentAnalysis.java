@@ -34,21 +34,8 @@ public class WriteContentAnalysis {
 		return result;
 	}
 	
-//	public String[] hashTags() {
-//		String str;
-//		String result[] = new String[10];
-//		int i=0;
-//		
-//		while(m.find()) {
-//			
-//			str = m.group();
-//			result[i] = str.substring(1, str.length());
-//			
-//			i++;
-//		} 
-//		
-//		return result;
-//	}
+
+
 }
 
 

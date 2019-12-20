@@ -49,7 +49,9 @@ public interface RetrofitInterface {
     @POST("/userUpdate")
     Call<Void> userUpdate(@Body UserUpdateDto userUpdateDto);
 
-
+    @Multipart
+    @POST("/userImageUpdate")
+    Call<ResponseBody> userImageUpdate(@Part MultipartBody.Part imageFile, @Part("userImageUpdateDto") RequestBody json);
 
 
 }
