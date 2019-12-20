@@ -29,7 +29,9 @@ import com.example.gamsung.MainHome.MainHomeActivity;
 import com.example.gamsung.MainHome.UserSearch.UserSearchActivity;
 import com.example.gamsung.MainHome.Write.WriteActivity;
 import com.example.gamsung.R;
+import com.example.gamsung.controller.UserController;
 import com.example.gamsung.domain.dto.user.GetProfileDto;
+import com.example.gamsung.domain.dto.user.UserUpdateDto;
 import com.example.gamsung.network.NetRetrofit;
 
 import java.io.File;
@@ -64,7 +66,9 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
     String identity; //로그인 사용자 identity
     Long uno; //로그인 사용자 uno ??
     String imageUrl; //사용자 프로필 이미지 uri
-    Bitmap bitmap;
+    UserUpdateDto userUpdateDto;
+    UserController userController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         userInfo=getSharedPreferences("UserInformation", Activity.MODE_PRIVATE);
         identity = userInfo.getString("identity",null);
 
+        userController = new UserController(getApplicationContext());
         ////////게시물 그리드뷰 /////////////////////////////////////////////////////////////////////서버에서 게시글번호를 통해 데이터를 받아야하는지.
         gridview = (GridView)findViewById(R.id.gridview);
 
@@ -134,6 +139,9 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         textProfile.setText(dlgEdtProfile.getText().toString());
+
+                        userUpdateDto = new UserUpdateDto(identity, textProfile.getText().toString());
+                        userController.userUpdate(userUpdateDto);
                     }
                 });
 

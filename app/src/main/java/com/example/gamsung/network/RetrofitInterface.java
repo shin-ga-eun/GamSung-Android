@@ -5,6 +5,7 @@ import com.example.gamsung.domain.dto.tag.TagSaveDto;
 import com.example.gamsung.domain.dto.user.GetProfileDto;
 import com.example.gamsung.domain.dto.user.LoginDto;
 import com.example.gamsung.domain.dto.user.LoginResponseDto;
+import com.example.gamsung.domain.dto.user.UserUpdateDto;
 
 import java.util.List;
 
@@ -44,6 +45,9 @@ public interface RetrofitInterface {
 
     @GET("/getProfile/{identity}")
     Call<GetProfileDto> getProfile(@Path("identity") String identity);
+
+    @POST("/userUpdate")
+    Call<Void> userUpdate(@Body UserUpdateDto userUpdateDto);
 
 
 

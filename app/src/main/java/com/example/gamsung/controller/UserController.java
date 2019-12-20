@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.gamsung.domain.dto.user.LoginDto;
 import com.example.gamsung.domain.dto.user.LoginResponseDto;
+import com.example.gamsung.domain.dto.user.UserUpdateDto;
 import com.example.gamsung.network.NetRetrofit;
 
 import retrofit2.Call;
@@ -45,6 +46,23 @@ public class UserController {
 
     }
 
+    public void userUpdate(UserUpdateDto userUpdateDto) {
+        Call<Void> response = NetRetrofit.getInstance().getNetRetrofitInterface().userUpdate(userUpdateDto);
+
+        response.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+
+    }
 }
 
 
