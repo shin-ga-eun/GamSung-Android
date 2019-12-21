@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.gamsung.CardActivity;
+import com.example.gamsung.Card.CardActivity;
 import com.example.gamsung.LoginActivity;
 import com.example.gamsung.Main.Hash.HashSearch.HashSearchActivity;
 import com.example.gamsung.Main.MainHome.MainHomeActivity;
@@ -74,6 +74,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
 
     View dialogView;
     String identity; //로그인 사용자 identity
+    String cardToIdentity; //cardActivity에서 넘어온 identity(키값: nickname)
     Long uno; //로그인 사용자 uno ??
     String imageUrl; //사용자 프로필 이미지 uri
     UserUpdateDto userUpdateDto;
@@ -85,12 +86,40 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myprofile);
 
+        ////////////////////////////////////////////////////////참조획득/////////////////////////////
+
+        btnMainHome = (Button)findViewById(R.id.btnMainHome);
+        btnImgModify = (ImageButton)findViewById(R.id.btnImgModify);
+        btnProfileModify = (ImageButton)findViewById(R.id.btnProfileModify);
+
+        textNickname = (TextView)findViewById(R.id.textNickname);
+        textTodayView = (TextView)findViewById(R.id.textTodayView);
+        textTotalView = (TextView)findViewById(R.id.textTotalView);
+        ImgProfile = (ImageView)findViewById(R.id.ImgProfile);
+        textProfile = (TextView)findViewById(R.id.textProfile);
+
         //로그인 사용자 identity 가져오기 -> getSharedPreferences()
         userInfo=getSharedPreferences("UserInformation", Activity.MODE_PRIVATE);
         loginEditor = userInfo.edit();
-        identity = userInfo.getString("identity",null);
+        identity = userInfo.getString("identity",null); //현재 로그인된 사용자 identity
 
         userController = new UserController(getApplicationContext());
+
+        //CardActivity에서 넘어온 경우, getintent to nickname -> identity = cardToIdentity
+        Intent inIntent = getIntent();
+        cardToIdentity = inIntent.getStringExtra("nickname");
+
+        Log.d("identity compare >>>>>>>>>>>>>>>>>>>",identity +"            "+cardToIdentity);
+        if(cardToIdentity != null) {
+            if(!cardToIdentity.equals(identity)) {
+                btnImgModify.setVisibility(View.INVISIBLE);
+                btnProfileModify.setVisibility(View.INVISIBLE);
+            }
+            else
+                Toast.makeText(getApplicationContext(), cardToIdentity + "의 프로필입니다.", Toast.LENGTH_SHORT).show();
+
+            identity = cardToIdentity;
+        }
 
         ////////게시물 그리드뷰 ////////////////////////////////////////////////////////////////////
         gridview = (GridView)findViewById(R.id.gridview);
@@ -98,6 +127,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         gridview.setAdapter(adapter);
 
         //서버연동
+        Log.d("서버 연동 시 참조하는 identity>>>",identity);
         Call<List<GetCardByIdentityDto>> responseCard= NetRetrofit.getInstance().getNetRetrofitInterface().getCardByIdentity(identity);
         responseCard.enqueue(new Callback<List<GetCardByIdentityDto>>() {
             @Override
@@ -128,24 +158,13 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("iii",""+id);
+                //카드 cno 넘기기
+                Long cno = Long.valueOf(String.valueOf(gridview.getAdapter().getItem(position)));
                 Intent intent = new Intent(getApplicationContext(), CardActivity.class);
-                intent.putExtra("cardID",id);
+                intent.putExtra("cno",cno);
                 startActivity(intent);
             }
         });
-
-        ////////////////////////////////////////////////////////참조획득/////////////////////////////
-
-        btnMainHome = (Button)findViewById(R.id.btnMainHome);
-        btnImgModify = (ImageButton)findViewById(R.id.btnImgModify);
-        btnProfileModify = (ImageButton)findViewById(R.id.btnProfileModify);
-
-        textNickname = (TextView)findViewById(R.id.textNickname);
-        textTodayView = (TextView)findViewById(R.id.textTodayView);
-        textTotalView = (TextView)findViewById(R.id.textTotalView);
-        ImgProfile = (ImageView)findViewById(R.id.ImgProfile);
-        textProfile = (TextView)findViewById(R.id.textProfile);
 
 
 
@@ -173,7 +192,6 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
 
                         userUpdateDto = new UserUpdateDto(identity, textProfile.getText().toString());
                         userController.userUpdate(userUpdateDto);
-
 
                     }
                 });

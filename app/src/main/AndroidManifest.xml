@@ -36,9 +36,9 @@
         <activity android:name=".Main.Write.WriteActivity"/>
         <activity android:name=".Main.Write.WriteImageActivity"/>
         <activity android:name=".Main.UserSearch.UserSearchActivity"/>
-        <activity android:name=".CardActivity"/>
-        <activity android:name=".CardCommentWriteActivity"/>
-        <activity android:name=".CardCommentWriteImageActivity"/>
+        <activity android:name=".Card.CardActivity"/>
+        <activity android:name=".Main.Write.CardCommentWriteActivity"/>
+        <activity android:name=".Main.Write.CardCommentWriteImageActivity"/>
 
 
 

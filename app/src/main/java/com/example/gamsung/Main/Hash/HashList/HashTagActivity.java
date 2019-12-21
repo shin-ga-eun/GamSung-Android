@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import com.example.gamsung.CardActivity;
+import com.example.gamsung.Card.CardActivity;
 import com.example.gamsung.R;
 import com.example.gamsung.domain.dto.card.GetCardByTagDto;
 import com.example.gamsung.network.NetRetrofit;
@@ -74,9 +74,10 @@ public class HashTagActivity extends AppCompatActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("iii",""+id);
+
+                Long cno = Long.valueOf(String.valueOf(gridview.getAdapter().getItem(position)));
                 Intent intent = new Intent(getApplicationContext(), CardActivity.class);
-                intent.putExtra("cardID",id);
+                intent.putExtra("cno",cno);
                 startActivity(intent);
             }
         });

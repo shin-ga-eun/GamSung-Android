@@ -1,13 +1,15 @@
-package com.example.gamsung;
+package com.example.gamsung.Main.Write;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,13 +17,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gamsung.Main.MyProfile.MyProfileActivity;
+import com.example.gamsung.R;
+import com.example.gamsung.network.NetRetrofit;
+
 import java.io.File;
 
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.example.gamsung.LoginActivity.loginCheck;
 
 //카드작성 페이지2
-//서버로 넘길 데이터-> imgCard, content, fontSize
+//서버로 넘길 데이터-> imgCard, content, fontSize, cno
 public class CardCommentWriteImageActivity extends AppCompatActivity implements View.OnClickListener {
+
+    MultipartBody.Part body; //imgCard
+    RequestBody body2; //replySaveDto-> content, fontSize, identity
+    String json; //서버에 보낼 json
+    Long cno;
 
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
@@ -32,7 +52,6 @@ public class CardCommentWriteImageActivity extends AppCompatActivity implements 
     Button btnFont;
     TextView textCard;
     ImageView imgCard; //배경이미지
-
     ImageButton btnGallery, btnCheck;
 
     String content; //카드내용 받는 변수
@@ -42,6 +61,10 @@ public class CardCommentWriteImageActivity extends AppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cardcommentwriteimage);
+
+        //해당 카드 글번호
+        Intent inIntent = getIntent();
+        cno = inIntent.getLongExtra("cno",0);
 
         imgCard = (ImageView)findViewById(R.id.imgCard);
         textCard = (TextView)findViewById(R.id.textCard);
@@ -102,16 +125,31 @@ public class CardCommentWriteImageActivity extends AppCompatActivity implements 
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (getApplicationContext(), CardActivity.class);
+                Call<ResponseBody> response = NetRetrofit.getInstance().getNetRetrofitInterface().saveReply(body, body2);
+                response.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        if(response.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "댓글 카드 작성 성공", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "이미지 업로드 실패"+t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                Intent intent = new Intent(getApplicationContext(), MyProfileActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
-
     }
 
-    //    갤러리에서 이미지 가져오는 코드 start ////////////////////////////////////////////////////////////
+    /////갤러리에서 이미지 가져오는 코드 start ////////////////////////////////////////////////////////////
     //카메라에서 이미지 가져오기
     private void doTakePhotoAction()
     {
@@ -133,6 +171,20 @@ public class CardCommentWriteImageActivity extends AppCompatActivity implements 
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
         startActivityForResult(intent, PICK_FROM_ALBUM);
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String filePath;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) {
+            filePath = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            filePath = cursor.getString(idx);
+            cursor.close();
+        }
+        return filePath;
     }
 
     @Override
@@ -157,12 +209,22 @@ public class CardCommentWriteImageActivity extends AppCompatActivity implements 
                     imgCard.setImageBitmap(photo);
                     imgCard.setAlpha(0.5f);
                 }
-                // 임시 파일 삭제
-                File f = new File(mImageCaptureUri.getPath());
-                if(f.exists())
-                {
-                    f.delete();
-                }
+
+                // multipart/////////////////////////////////////////////////////////////////////////////////////////////
+                File file = new File(getRealPathFromURI(mImageCaptureUri));
+
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                body = MultipartBody.Part.createFormData("imageFile", file.getName(), requestFile);
+                content = content.replace("\n","__"); //서버에 전송 전 개행문자 처리
+
+                json = "{\"identity\":\""+loginCheck+"\",\"cno\":"+cno+",\"content\":\""+content+"\",\"fontsize\":"+fontSize+"}";
+                Log.d("json",json);
+                body2 = RequestBody.create(MediaType.parse("multipart/form-data"), json);
+
+//                if(f.exists())
+//                {
+//                    f.delete();
+//                }
                 break;
             }
 

@@ -1,4 +1,4 @@
-package com.example.gamsung;
+package com.example.gamsung.Main.Write;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.example.gamsung.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,13 +17,17 @@ public class CardCommentWriteActivity extends AppCompatActivity {
     ImageView imgCard;
     Button btnMainHome, btnWriteImage;
     EditText edtCard;
-
+    Long cno;
     String content; //카드내용
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
+
+        //해당 카드 글번호
+        Intent inIntent = getIntent();
+        cno = inIntent.getLongExtra("cno",0);
 
         imgCard = (ImageView)findViewById(R.id.imgCard);
         btnWriteImage = (Button)findViewById(R.id.btnWriteImage);
@@ -46,7 +52,9 @@ public class CardCommentWriteActivity extends AppCompatActivity {
 
                 Intent intent = new Intent (getApplicationContext(), CardCommentWriteImageActivity.class);
                 intent.putExtra("content",content);
+                intent.putExtra("cno",cno);
                 startActivity(intent);
+                finish();
 
             }
         });

@@ -1,4 +1,4 @@
-package com.example.gamsung;
+package com.example.gamsung.Card;
 
 public class CardRecyclerItem {
 

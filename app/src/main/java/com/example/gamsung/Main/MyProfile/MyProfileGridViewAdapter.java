@@ -34,7 +34,7 @@ public class MyProfileGridViewAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return myprofileList.get(position);
+        return myprofileList.get(position).getCno();
     }
 
     @Override
