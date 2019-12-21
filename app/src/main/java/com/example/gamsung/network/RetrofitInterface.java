@@ -1,5 +1,6 @@
 package com.example.gamsung.network;
 
+import com.example.gamsung.domain.dto.card.GetCardByTagDto;
 import com.example.gamsung.domain.dto.tag.GetTagDto;
 import com.example.gamsung.domain.dto.tag.TagSaveDto;
 import com.example.gamsung.domain.dto.user.GetProfileDto;
@@ -52,6 +53,9 @@ public interface RetrofitInterface {
     @Multipart
     @POST("/userImageUpdate")
     Call<ResponseBody> userImageUpdate(@Part MultipartBody.Part imageFile, @Part("userImageUpdateDto") RequestBody json);
+
+    @GET("/getCardByTag/{tagname}")
+    Call<List<GetCardByTagDto>> getCardByTag(@Path("tagname") String tagname);
 
 
 }

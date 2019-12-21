@@ -2,40 +2,41 @@ package com.example.gamsung.MainHome.HashSearch.HashList;
 
 public class HashTagGridViewItem {
 
-    private int img; //카드이미지
+    private String imageUrl; //카드이미지
     private String content; //카드내용
-    private int fontSize; //폰트크기
-//    private int CardNum; //카드게시글넘버
+    private int fontsize; //폰트크기
+     private Long cno; //카드게시글넘버
 
-    public HashTagGridViewItem(int img, String content, int fontSize){
-        this.img = img;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
         this.content = content;
-        this.fontSize = fontSize;
     }
 
-    public void setImg(int img){
-        this.img = img;
+    public int getFontsize() {
+        return fontsize;
     }
 
-    public int getImg (){
-        return this.img;
+    public void setFontsize(int fontsize) {
+        this.fontsize = fontsize;
     }
 
-    public void setContent(String content){
-        this.content = content;
+    public Long getCno() {
+        return cno;
     }
 
-    public String getContent(){
-        return this.content;
+    public void setCno(Long cno) {
+        this.cno = cno;
     }
-
-    public void setFontSize(int fontSize){
-        this.fontSize = fontSize;
-    }
-
-    public int getFontSize (){
-        return this.fontSize;
-    }
-
-
 }

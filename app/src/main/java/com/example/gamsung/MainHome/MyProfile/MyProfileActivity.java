@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -38,7 +37,6 @@ import com.example.gamsung.network.NetRetrofit;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -199,7 +197,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
                             .override(180, 175) // resizing
                             .centerCrop()
                             .into(ImgProfile);  // imageview object
-                    //ImgProfile.notify();
+
                     Log.d("Glide imageUrl", imageUrl);
 
                 }

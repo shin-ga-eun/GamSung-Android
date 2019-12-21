@@ -11,16 +11,23 @@ import android.widget.TextView;
 
 import com.example.gamsung.CardActivity;
 import com.example.gamsung.R;
+import com.example.gamsung.domain.dto.card.GetCardByTagDto;
+import com.example.gamsung.network.NetRetrofit;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HashTagActivity extends AppCompatActivity {
 
     TextView textHashTagName;
     GridView gridview;
     Button btnMainHome;
+    String tagname;
+    HashTagGridViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,36 +35,46 @@ public class HashTagActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hashtag);
 
         Intent inIntent = getIntent();
-        String hashname = inIntent.getStringExtra("name");
+        tagname = inIntent.getStringExtra("name");
 
         textHashTagName = (TextView)findViewById(R.id.textHashTagName);
-        textHashTagName.setText(hashname);
+        textHashTagName.setText(tagname);
 
-        ////////게시물 그리드뷰 /////////////////////////////////////////////////////////////////////서버에서 게시글번호를 통해 데이터를 받아야하는지.
+        ////////게시물 그리드뷰 /////////////////////////////////////////////////////////////////////
         gridview = (GridView)findViewById(R.id.gridview);
-
-        ArrayList<HashTagGridViewItem> hashtagList = new ArrayList<>();
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",30));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",20));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",15));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",30));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",20));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",15));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",15));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",15));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",15));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",15));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",15));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",15));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",15));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",15));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",15));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",15));
-        hashtagList.add(new HashTagGridViewItem(R.drawable.img2, "아이유",15));
-
-
-        HashTagGridViewAdapter adapter = new HashTagGridViewAdapter(this, hashtagList);
+        adapter = new HashTagGridViewAdapter(this);
         gridview.setAdapter(adapter);
+
+        Call<List<GetCardByTagDto>> response= NetRetrofit.getInstance().getNetRetrofitInterface().getCardByTag(tagname);
+        response.enqueue(new Callback<List<GetCardByTagDto>>() {
+            @Override
+            public void onResponse(Call<List<GetCardByTagDto>> call, Response<List<GetCardByTagDto>> response) {
+                if(response.isSuccessful()) {
+                    Log.d("getCardByTagDto in cardController", "여기 들어와써여");
+                    List<GetCardByTagDto> resource = response.body();
+
+                    for(GetCardByTagDto getCardByTagDto: resource){
+                        adapter.addItem(getCardByTagDto.getCno(), getCardByTagDto.getContent(), getCardByTagDto.getImageUrl(), getCardByTagDto.getFontsize());
+                        Log.d("getCardByTagDto",getCardByTagDto.getCno().toString());
+                        Log.d("getCardByTagDto",getCardByTagDto.getContent());
+                        Log.d("getCardByTagDto",getCardByTagDto.getImageUrl());
+                        Log.d("getCardByTagDto", ""+getCardByTagDto.getFontsize());
+                    }
+                    adapter.notifyDataSetChanged();
+
+                }
+            }
+            @Override
+            public void onFailure(Call<List<GetCardByTagDto>> call, Throwable t) {
+
+            }
+
+        });
+
+
+
+
+
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

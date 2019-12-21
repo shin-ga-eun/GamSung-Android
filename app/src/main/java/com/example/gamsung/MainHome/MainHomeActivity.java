@@ -39,6 +39,7 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
     Button btnMain, btnSearch, btnCard, btnTimeLine, btnLogout; // 하단버튼목록들
     private SharedPreferences userInfo;
     private SharedPreferences.Editor loginEditor;
+    TabHost tabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +124,7 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
 
 
         ////////////////////////////////////////////////////////////탭호스트////////////
-        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
+        tabHost = (TabHost) findViewById(R.id.tabHost);
         tabHost.setup();
 
         // 첫 번째 Tab
@@ -137,26 +138,6 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
         ts2.setContent(R.id.content2);
         ts2.setIndicator("새로운");
         tabHost.addTab(ts2);
-
-
-        tabHost.setCurrentTab(0);
-
-        ///////////////////////////////생성된 listview 에 클릭 이벤트 핸들러 정의//////////////////////
-        listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-
-        listview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-
-
 
         //리스트뷰 추가 -> 서버와 연결해서 데이터를 받아오는 부분//////////////////////
         //getPopular adapter additem
@@ -172,10 +153,10 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
                         adapter1.addItem(getTagDto.getTagname());
                     }
 
+                    adapter1.notifyDataSetChanged();
+
                 }
-
             }
-
             @Override
             public void onFailure(Call<List<GetTagDto>> call, Throwable t) {
 
@@ -183,13 +164,14 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
 
         });
 
+
         //getNew adapter additem
         Call<List<GetTagDto>> response2= NetRetrofit.getInstance().getNetRetrofitInterface().getNew();
         response2.enqueue(new Callback<List<GetTagDto>>() {
             @Override
             public void onResponse(Call<List<GetTagDto>> call, Response<List<GetTagDto>> response) {
                 if(response.isSuccessful()) {
-                    Log.d("getPopular in tagController", "여기 들어와써여");
+                    Log.d("getNew in tagController", "여기 들어와써여");
                     List<GetTagDto> resource = response.body();
 
                     for(GetTagDto getTagDto: resource){
@@ -206,6 +188,35 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
             }
 
         });
+
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Toast.makeText(getApplicationContext(), "로딩중", Toast.LENGTH_LONG).show();
+                tabHost.setCurrentTab(0);
+
+//        }, 1800);
+
+
+        ///////////////////////////////생성된 listview 에 클릭 이벤트 핸들러 정의///////////////////////
+        listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
+        listview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
+
+
+
 
 
     }
