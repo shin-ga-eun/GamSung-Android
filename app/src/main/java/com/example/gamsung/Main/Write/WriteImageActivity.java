@@ -257,6 +257,7 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
 
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 body = MultipartBody.Part.createFormData("imageFile", file.getName(), requestFile);
+                content = content.replace("\n","__"); //서버에 전송 전 개행문자 처리
 
                 json = "{\"identity\":\""+loginCheck+"\",\"content\":\""+content+"\",\"fontsize\":"+fontSize+"}";
                 Log.d("json",json);
