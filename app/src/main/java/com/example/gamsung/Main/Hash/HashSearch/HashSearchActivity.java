@@ -1,4 +1,4 @@
-package com.example.gamsung.MainHome.HashSearch;
+package com.example.gamsung.Main.Hash.HashSearch;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.gamsung.MainHome.HashSearch.HashList.HashTagActivity;
-import com.example.gamsung.MainHome.MainHomeActivity;
+import com.example.gamsung.Main.Hash.HashList.HashTagActivity;
+import com.example.gamsung.Main.MainHome.MainHomeActivity;
 import com.example.gamsung.R;
 
 import androidx.appcompat.app.AppCompatActivity;

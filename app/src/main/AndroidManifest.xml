@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InitialActivity">
+        <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,15 +27,15 @@
         <activity android:name=".IntroActivity"/>
         <activity android:name=".LoginActivity"/>
         <activity android:name=".SignUp.SignUpActivity"/>
-        <activity android:name=".MainHome.MainHomeActivity"/>
+        <activity android:name=".Main.MainHome.MainHomeActivity"/>
         <activity android:name=".SignUp.SignUpProfileActivity"/>
-        <activity android:name=".MainHome.MyProfile.MyProfileActivity"/>
-        <activity android:name=".MainHome.HashSearch.HashList.HashTagActivity"/>
+        <activity android:name=".Main.MyProfile.MyProfileActivity"/>
+        <activity android:name=".Main.Hash.HashList.HashTagActivity"/>
 
-        <activity android:name=".MainHome.HashSearch.HashSearchActivity"/>
-        <activity android:name=".MainHome.Write.WriteActivity"/>
-        <activity android:name=".MainHome.Write.WriteImageActivity"/>
-        <activity android:name=".MainHome.UserSearch.UserSearchActivity"/>
+        <activity android:name=".Main.Hash.HashSearch.HashSearchActivity"/>
+        <activity android:name=".Main.Write.WriteActivity"/>
+        <activity android:name=".Main.Write.WriteImageActivity"/>
+        <activity android:name=".Main.UserSearch.UserSearchActivity"/>
         <activity android:name=".CardActivity"/>
         <activity android:name=".CardCommentWriteActivity"/>
         <activity android:name=".CardCommentWriteImageActivity"/>

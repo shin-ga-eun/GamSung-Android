@@ -1,4 +1,4 @@
-package com.example.gamsung.MainHome.UserSearch;
+package com.example.gamsung.Main.UserSearch;
 
 import android.os.Bundle;
 

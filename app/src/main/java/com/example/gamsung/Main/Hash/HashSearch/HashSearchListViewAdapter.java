@@ -1,4 +1,4 @@
-package com.example.gamsung.MainHome.HashSearch;
+package com.example.gamsung.Main.Hash.HashSearch;
 
 import android.content.Context;
 import android.view.LayoutInflater;

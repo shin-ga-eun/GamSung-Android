@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.gamsung.MainHome.MainHomeActivity;
+import com.example.gamsung.Main.MainHome.MainHomeActivity;
 import com.example.gamsung.SignUp.SignUpActivity;
 import com.example.gamsung.controller.UserController;
 import com.example.gamsung.domain.dto.user.LoginDto;

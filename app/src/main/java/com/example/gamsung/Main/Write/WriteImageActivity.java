@@ -1,4 +1,4 @@
-package com.example.gamsung.MainHome.Write;
+package com.example.gamsung.Main.Write;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gamsung.MainHome.MyProfile.MyProfileActivity;
+import com.example.gamsung.Main.MyProfile.MyProfileActivity;
 import com.example.gamsung.R;
 import com.example.gamsung.controller.CardController;
 import com.example.gamsung.domain.dto.tag.TagSaveDto;
@@ -150,9 +150,6 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
             public void onClick(View v) {
 
                 Call<ResponseBody> response = NetRetrofit.getInstance().getNetRetrofitInterface().saveCard(body, body2);
-
-                Log.d("Response", response.toString());
-
                 response.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -169,7 +166,6 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
                                     Log.d("Success cnocno",""+cno);
                                     tagSaveDto = new TagSaveDto(hasharray.get(i), cno);
                                     cardController.saveTag(tagSaveDto);
-
                                 }
 
                             } catch (IOException e) {
@@ -187,6 +183,7 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
 
                 Intent intent = new Intent(getApplicationContext(), MyProfileActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

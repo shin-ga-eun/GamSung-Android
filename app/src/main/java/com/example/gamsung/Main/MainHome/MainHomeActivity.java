@@ -1,4 +1,4 @@
-package com.example.gamsung.MainHome;
+package com.example.gamsung.Main.MainHome;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,11 +13,11 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.example.gamsung.LoginActivity;
-import com.example.gamsung.MainHome.HashSearch.HashList.HashTagActivity;
-import com.example.gamsung.MainHome.HashSearch.HashSearchActivity;
-import com.example.gamsung.MainHome.MyProfile.MyProfileActivity;
-import com.example.gamsung.MainHome.UserSearch.UserSearchActivity;
-import com.example.gamsung.MainHome.Write.WriteActivity;
+import com.example.gamsung.Main.Hash.HashList.HashTagActivity;
+import com.example.gamsung.Main.Hash.HashSearch.HashSearchActivity;
+import com.example.gamsung.Main.MyProfile.MyProfileActivity;
+import com.example.gamsung.Main.UserSearch.UserSearchActivity;
+import com.example.gamsung.Main.Write.WriteActivity;
 import com.example.gamsung.R;
 import com.example.gamsung.controller.TagController;
 import com.example.gamsung.domain.dto.tag.GetTagDto;

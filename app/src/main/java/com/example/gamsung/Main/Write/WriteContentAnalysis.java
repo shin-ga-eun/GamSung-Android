@@ -1,4 +1,4 @@
-package com.example.gamsung.MainHome.Write;
+package com.example.gamsung.Main.Write;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

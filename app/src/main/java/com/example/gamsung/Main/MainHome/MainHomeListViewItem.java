@@ -1,4 +1,4 @@
-package com.example.gamsung.MainHome;
+package com.example.gamsung.Main.MainHome;
 
 public class MainHomeListViewItem {
 

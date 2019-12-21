@@ -1,5 +1,6 @@
 package com.example.gamsung.network;
 
+import com.example.gamsung.domain.dto.card.GetCardByIdentityDto;
 import com.example.gamsung.domain.dto.card.GetCardByTagDto;
 import com.example.gamsung.domain.dto.tag.GetTagDto;
 import com.example.gamsung.domain.dto.tag.TagSaveDto;
@@ -57,5 +58,6 @@ public interface RetrofitInterface {
     @GET("/getCardByTag/{tagname}")
     Call<List<GetCardByTagDto>> getCardByTag(@Path("tagname") String tagname);
 
-
+    @GET("/getProfileCard/{identity}")
+    Call<List<GetCardByIdentityDto>> getCardByIdentity(@Path("identity") String identity);
 }

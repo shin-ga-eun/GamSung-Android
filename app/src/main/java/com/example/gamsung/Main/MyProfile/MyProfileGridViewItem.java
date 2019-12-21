@@ -1,12 +1,20 @@
-package com.example.gamsung.MainHome.HashSearch.HashList;
+package com.example.gamsung.Main.MyProfile;
 
-public class HashTagGridViewItem {
+public class MyProfileGridViewItem {
 
     private String imageUrl; //카드이미지
     private String content; //카드내용
     private int fontsize; //폰트크기
-     private Long cno; //카드게시글넘버
+    private Long cno; //카드게시글넘버
+    private String identity;
 
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -39,4 +47,6 @@ public class HashTagGridViewItem {
     public void setCno(Long cno) {
         this.cno = cno;
     }
+
+
 }

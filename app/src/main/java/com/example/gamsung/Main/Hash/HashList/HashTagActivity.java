@@ -1,4 +1,4 @@
-package com.example.gamsung.MainHome.HashSearch.HashList;
+package com.example.gamsung.Main.Hash.HashList;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -70,11 +70,6 @@ public class HashTagActivity extends AppCompatActivity {
             }
 
         });
-
-
-
-
-
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

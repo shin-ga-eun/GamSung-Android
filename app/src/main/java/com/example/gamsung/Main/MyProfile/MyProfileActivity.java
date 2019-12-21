@@ -1,4 +1,4 @@
-package com.example.gamsung.MainHome.MyProfile;
+package com.example.gamsung.Main.MyProfile;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -25,18 +25,19 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.gamsung.CardActivity;
 import com.example.gamsung.LoginActivity;
-import com.example.gamsung.MainHome.HashSearch.HashSearchActivity;
-import com.example.gamsung.MainHome.MainHomeActivity;
-import com.example.gamsung.MainHome.UserSearch.UserSearchActivity;
-import com.example.gamsung.MainHome.Write.WriteActivity;
+import com.example.gamsung.Main.Hash.HashSearch.HashSearchActivity;
+import com.example.gamsung.Main.MainHome.MainHomeActivity;
+import com.example.gamsung.Main.UserSearch.UserSearchActivity;
+import com.example.gamsung.Main.Write.WriteActivity;
 import com.example.gamsung.R;
 import com.example.gamsung.controller.UserController;
+import com.example.gamsung.domain.dto.card.GetCardByIdentityDto;
 import com.example.gamsung.domain.dto.user.GetProfileDto;
 import com.example.gamsung.domain.dto.user.UserUpdateDto;
 import com.example.gamsung.network.NetRetrofit;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -77,7 +78,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
     String imageUrl; //사용자 프로필 이미지 uri
     UserUpdateDto userUpdateDto;
     UserController userController;
-
+    MyProfileGridViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,23 +87,43 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
 
         //로그인 사용자 identity 가져오기 -> getSharedPreferences()
         userInfo=getSharedPreferences("UserInformation", Activity.MODE_PRIVATE);
-
+        loginEditor = userInfo.edit();
         identity = userInfo.getString("identity",null);
 
         userController = new UserController(getApplicationContext());
-        ////////게시물 그리드뷰 /////////////////////////////////////////////////////////////////////서버에서 게시글번호를 통해 데이터를 받아야하는지.
+
+        ////////게시물 그리드뷰 ////////////////////////////////////////////////////////////////////
         gridview = (GridView)findViewById(R.id.gridview);
-
-        ArrayList<MyProfileGridViewItem> myprofileList = new ArrayList<>();
-        myprofileList.add(new MyProfileGridViewItem(R.drawable.img2, "아이유",30));
-        myprofileList.add(new MyProfileGridViewItem(R.drawable.img2, "아이유",20));
-        myprofileList.add(new MyProfileGridViewItem(R.drawable.img2, "아이유",15));
-        myprofileList.add(new MyProfileGridViewItem(R.drawable.img2, "아이유",30));
-        myprofileList.add(new MyProfileGridViewItem(R.drawable.img2, "아이유",20));
-        myprofileList.add(new MyProfileGridViewItem(R.drawable.img2, "아이유",15));
-
-        MyProfileGridViewAdapter adapter = new MyProfileGridViewAdapter(this, myprofileList);
+        adapter = new MyProfileGridViewAdapter(this);
         gridview.setAdapter(adapter);
+
+        //서버연동
+        Call<List<GetCardByIdentityDto>> responseCard= NetRetrofit.getInstance().getNetRetrofitInterface().getCardByIdentity(identity);
+        responseCard.enqueue(new Callback<List<GetCardByIdentityDto>>() {
+            @Override
+            public void onResponse(Call<List<GetCardByIdentityDto>> call, Response<List<GetCardByIdentityDto>> response) {
+                if(response.isSuccessful()) {
+                    Log.d("getCardByTagDto in cardController", "여기 들어와써여");
+                    List<GetCardByIdentityDto> resource = response.body();
+
+                    for(GetCardByIdentityDto getCardByIdentityDto: resource){
+                        adapter.addItem(getCardByIdentityDto.getCno(), identity, getCardByIdentityDto.getContent(), getCardByIdentityDto.getImageUrl(), getCardByIdentityDto.getFontsize());
+                        Log.d("getCardByTagDto",getCardByIdentityDto.getCno().toString());
+                        Log.d("getCardByTagDto",getCardByIdentityDto.getContent());
+                        Log.d("getCardByTagDto",getCardByIdentityDto.getImageUrl());
+                        Log.d("getCardByTagDto", ""+getCardByIdentityDto.getFontsize());
+                    }
+                    adapter.notifyDataSetChanged();
+
+                }
+            }
+            @Override
+            public void onFailure(Call<List<GetCardByIdentityDto>> call, Throwable t) {
+
+            }
+
+        });
+
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -254,7 +275,9 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(), MainHomeActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -262,6 +285,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), HashSearchActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         btnCard.setOnClickListener(new View.OnClickListener() {
@@ -269,6 +293,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         btnTimeLine.setOnClickListener(new View.OnClickListener() {
@@ -276,6 +301,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UserSearchActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -287,6 +313,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
 
                 Intent Logout=new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(Logout);
+                finish();
             }
         });
 
