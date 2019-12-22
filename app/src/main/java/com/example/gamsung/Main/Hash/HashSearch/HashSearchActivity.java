@@ -7,25 +7,32 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.GridView;
 
-import com.example.gamsung.Main.Hash.HashList.HashTagActivity;
+import com.example.gamsung.Card.CardActivity;
 import com.example.gamsung.Main.MainHome.MainHomeActivity;
 import com.example.gamsung.R;
+import com.example.gamsung.domain.dto.card.GetCardByTagDto;
+import com.example.gamsung.network.NetRetrofit;
+
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 //해시태그검색기능 액티비티
 
-public class HashSearchActivity extends AppCompatActivity implements HashSearchListViewAdapter.ListBtnClickListener {
+public class HashSearchActivity extends AppCompatActivity {
 
     EditText edtHash;
     Button btnMainHome, btnKeyword;
 
     String keywordData; //검색키워드
 
-    HashSearchListViewAdapter adapter;
-    ListView listview;
+    HashSearchGridViewAdapter adapter;
+    GridView gridview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,43 +53,65 @@ public class HashSearchActivity extends AppCompatActivity implements HashSearchL
             }
         });
 
+        //////////리스트뷰 어댑터 참조//////////////////////////////////////////////
+        adapter = new HashSearchGridViewAdapter(this);
+        gridview = (GridView) findViewById(R.id.gridview);
+        gridview.setAdapter(adapter);
+
+
         //서버에서 데이터를 가져와
         btnKeyword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 keywordData = edtHash.getText().toString();
-
                 Log.d("keywordData 값", keywordData); //로그
+
+                Call<List<GetCardByTagDto>> response= NetRetrofit.getInstance().getNetRetrofitInterface().getSearchTag(keywordData);
+                response.enqueue(new Callback<List<GetCardByTagDto>>() {
+                    @Override
+                    public void onResponse(Call<List<GetCardByTagDto>> call, Response<List<GetCardByTagDto>> response) {
+                        if(response.isSuccessful()) {
+                            Log.d("getCardByTagDto in cardController", "여기 들어와써여");
+                            List<GetCardByTagDto> resource = response.body();
+
+                            for(GetCardByTagDto getCardByTagDto: resource){
+                                adapter.addItem(getCardByTagDto.getCno(), getCardByTagDto.getContent(), getCardByTagDto.getImageUrl(), getCardByTagDto.getFontsize());
+                                Log.d("getCardByTagDto",getCardByTagDto.getCno().toString());
+                                Log.d("getCardByTagDto",getCardByTagDto.getContent());
+                                Log.d("getCardByTagDto",getCardByTagDto.getImageUrl());
+                                Log.d("getCardByTagDto", ""+getCardByTagDto.getFontsize());
+                            }
+                            adapter.notifyDataSetChanged();
+
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<List<GetCardByTagDto>> call, Throwable t) {
+
+                    }
+
+                });
+
+                adapter.deleteItem();
+                adapter.notifyDataSetChanged();
+
             }
         });
 
-        //////////리스트뷰 어댑터 참조//////////////////////////////////////////////
-        adapter = new HashSearchListViewAdapter(this);
-        listview = (ListView)findViewById(R.id.listview);
-        listview.setAdapter(adapter);
 
-        adapter.addItem("임시데이터");
-        adapter.addItem("임시데이터");
-        adapter.addItem("임시데이터");
-        adapter.addItem("임시데이터");
-
-
-        ///////////////////////////////생성된 listview 에 클릭 이벤트 핸들러 정의/////
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Long cno = Long.valueOf(String.valueOf(gridview.getAdapter().getItem(position)));
+                Intent intent = new Intent(getApplicationContext(), CardActivity.class);
+                intent.putExtra("cno",cno);
+                startActivity(intent);
             }
         });
     }
 
-        @Override
-        public void onListBtnClick(String name){
-            Intent intent = new Intent(getApplicationContext(), HashTagActivity.class); //어디로이동?????????????????????????????
-            intent.putExtra("name",name); //탭 name 데이터를 넘겨준다
 
-            startActivity(intent);
-        }
     }
 
 

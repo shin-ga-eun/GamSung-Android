@@ -100,27 +100,7 @@
         android:orientation="horizontal"
         android:layout_gravity="center"
         >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Today"
-            android:textSize="15dp"
-            android:layout_marginRight="3dp"
-            />
-        <TextView
-            android:id="@+id/textTodayView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="15dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" / "
-            android:textSize="15dp"
-            android:layout_marginRight="3dp"
-            />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

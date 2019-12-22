@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -64,7 +63,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
     Button btnMainHome;
     Button btnMain, btnSearch, btnCard, btnTimeLine, btnLogout; // 하단버튼목록들
     ImageButton btnImgModify , btnProfileModify;
-    TextView textNickname, textTodayView, textTotalView, textProfile;
+    TextView textNickname, textTotalView, textProfile;
     ImageView ImgProfile;
     EditText dlgEdtProfile;
 
@@ -93,7 +92,6 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         btnProfileModify = (ImageButton)findViewById(R.id.btnProfileModify);
 
         textNickname = (TextView)findViewById(R.id.textNickname);
-        textTodayView = (TextView)findViewById(R.id.textTodayView);
         textTotalView = (TextView)findViewById(R.id.textTotalView);
         ImgProfile = (ImageView)findViewById(R.id.ImgProfile);
         textProfile = (TextView)findViewById(R.id.textProfile);
@@ -216,7 +214,6 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
                     GetProfileDto getProfile = response.body();
                     textNickname.setText(getProfile.getNickname());
                     textProfile.setText(getProfile.getProfileText());
-                    textTodayView.setText(getProfile.getToday());
                     textTotalView.setText(getProfile.getTotal());
                     imageUrl = getProfile.getImageUrl();
                     uno = getProfile.getUno();
@@ -248,30 +245,6 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
             }
 
         });
-
-        //프로필이미지 uri Glide를 통해 넣기.
-        /*
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Glide.with(getApplicationContext())
-                        .load(imageUrl) // image url
-                        .placeholder(R.drawable.isloading) // any placeholder to load at start
-                        .error(R.drawable.emptyheart)  // any image in case of error
-                        .override(180, 175) // resizing
-                        .centerCrop()
-                        .into(ImgProfile);  // imageview object
-
-                Log.d("Glide imageUrl", imageUrl);
-
-
-                }
-            }, 1800);
-
-         */
-
-
 
         //상단 메인홈버튼
         btnMainHome.setOnClickListener(new View.OnClickListener() {
@@ -340,20 +313,6 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
     }
 
     //    갤러리에서 이미지 가져오는 코드 start ////////////////////////////////////////////////////////////
-    //카메라에서 이미지 가져오기
-    private void doTakePhotoAction()
-    {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        // 임시로 사용할 파일의 경로를 생성
-        String url = "tmp_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
-        mImageCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), url));
-        intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
-        //intent.putExtra("return-data", true);
-        startActivityForResult(intent, PICK_FROM_CAMERA);
-
-    }
-
     //앨범에서 이미지 가져오기
     private void doTakeAlbumAction()
     {
@@ -363,6 +322,7 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         startActivityForResult(intent, PICK_FROM_ALBUM);
     }
 
+    //실제 사진 경로 받아오기 -> 안드로이드 내부저장소 경로가 아닌, 외부저장소 경로를 가지고 옴
     private String getRealPathFromURI(Uri contentURI) {
         String filePath;
         Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
@@ -389,17 +349,14 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         switch(requestCode){
             case CROP_FROM_CAMERA:
             {
-                // 크롭이 된 이후의 이미지를 넘겨 받습니다.
-                // 이미지뷰에 이미지를 보여준다거나 부가적인 작업 이후에 임시 파일을 삭제합니다.
                 final Bundle extras = data.getExtras();
 
                 if(extras != null)
                 {
                     Bitmap photo = extras.getParcelable("data");
                     ImgProfile.setImageBitmap(photo);
-//                    ImgProfile.setAlpha(0.5f);
                 }
-                // 임시 파일 삭제
+
                 // multipart/////////////////////////////////////////////////////////////////////////////////////////////
                 File file = new File(getRealPathFromURI(mImageCaptureUri));
 
@@ -426,10 +383,6 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
                     }
                 });
 
-//                if(f.exists())
-//                {
-//                    f.delete();
-//                }
                 break;
             }
 
@@ -438,10 +391,10 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
                 mImageCaptureUri = data.getData();
             }
 
+
             case PICK_FROM_CAMERA:
             {
-                // 이미지를 가져온 이후의 리사이즈할 이미지 크기를 결정합니다.
-                // 이후에 이미지 크롭 어플리케이션을 호출하게 됩니다.
+                // 이미지를 가져온 이후의 리사이즈할 이미지 크기 결정 -> 이미지 크롭 어플리케이션을 호출
                 Intent intent = new Intent("com.android.camera.action.CROP");
                 intent.setDataAndType(mImageCaptureUri, "image/*");
 
@@ -455,20 +408,14 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
 
                 break;
             }
+
+
         }
     }
 
     @Override
     public void onClick(View v)
     {
-
-        DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                doTakePhotoAction();
-            }
-
-        };
 
         DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
             @Override
@@ -494,12 +441,6 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
 
     }
     //    갤러리에서 이미지 가져오는 코드 end ////////////////////////////////////////////////////////////
-
-
-
-
-
-
 
 }
 

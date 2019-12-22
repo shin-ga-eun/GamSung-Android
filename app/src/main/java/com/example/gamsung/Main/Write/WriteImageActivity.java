@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -149,63 +148,55 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View v) {
 
-                Call<ResponseBody> response = NetRetrofit.getInstance().getNetRetrofitInterface().saveCard(body, body2);
-                response.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (body != null) {
+                    Call<ResponseBody> response = NetRetrofit.getInstance().getNetRetrofitInterface().saveCard(body, body2);
+                    response.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                        if(response.isSuccessful()){
-                            try {
-                                String getServerCno = response.body().string();
-                                Log.d("Success : " , getServerCno);
+                            if (response.isSuccessful()) {
+                                try {
+                                    String getServerCno = response.body().string();
+                                    Log.d("Success : ", getServerCno);
 
-                                cno = Long.parseLong(getServerCno);
-                                Log.d("Success cno : " , ""+cno);
+                                    cno = Long.parseLong(getServerCno);
+                                    Log.d("Success cno : ", "" + cno);
 
-                                for(int i=0; i<hasharray.size(); i++) {
-                                    Log.d("Success cnocno",""+cno);
-                                    tagSaveDto = new TagSaveDto(hasharray.get(i), cno);
-                                    cardController.saveTag(tagSaveDto);
+                                    for (int i = 0; i < hasharray.size(); i++) {
+                                        Log.d("Success cnocno", "" + cno);
+                                        tagSaveDto = new TagSaveDto(hasharray.get(i), cno);
+                                        cardController.saveTag(tagSaveDto);
+                                    }
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
                                 }
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                                Toast.makeText(getApplicationContext(), "카드 작성 성공", Toast.LENGTH_LONG).show();
                             }
-                            Toast.makeText(getApplicationContext(), "카드 작성 성공", Toast.LENGTH_LONG).show();
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "이미지 업로드 실패"+t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "이미지 업로드 실패" + t.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
 
-                Intent intent = new Intent(getApplicationContext(), MyProfileActivity.class);
-                startActivity(intent);
-                finish();
+                    Intent intent = new Intent(getApplicationContext(), MyProfileActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "이미지 등록 해주세요.", Toast.LENGTH_LONG).show();
             }
-        });
 
+
+        });
 
 
 
     }
 
 //    갤러리에서 이미지 가져오는 코드 start ////////////////////////////////////////////////////////////
-    //카메라에서 이미지 가져오기
-    private void doTakePhotoAction()
-    {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        // 임시로 사용할 파일의 경로를 생성
-        String url = "tmp_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
-        mImageCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), url));
-        intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
-        //intent.putExtra("return-data", true);
-        startActivityForResult(intent, PICK_FROM_CAMERA);
-
-    }
 
     //앨범에서 이미지 가져오기
     private void doTakeAlbumAction()
@@ -242,8 +233,6 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
         switch(requestCode){
             case CROP_FROM_CAMERA:
             {
-                // 크롭이 된 이후의 이미지를 넘겨 받습니다.
-                // 이미지뷰에 이미지를 보여준다거나 부가적인 작업 이후에 임시 파일을 삭제합니다.
                 final Bundle extras = data.getExtras();
 
                 if(extras != null)
@@ -263,11 +252,6 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
                 Log.d("json",json);
                 body2 = RequestBody.create(MediaType.parse("multipart/form-data"), json);
 
-
-//                if(f.exists())
-//                {
-//                    f.delete();
-//                }
                 break;
             }
 
@@ -278,8 +262,7 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
 
             case PICK_FROM_CAMERA:
             {
-                // 이미지를 가져온 이후의 리사이즈할 이미지 크기를 결정합니다.
-                // 이후에 이미지 크롭 어플리케이션을 호출하게 됩니다.
+                // 이미지를 가져온 이후의 리사이즈할 이미지 크기 결정 -> 이미지 크롭 어플리케이션을 호출
                 Intent intent = new Intent("com.android.camera.action.CROP");
                 intent.setDataAndType(mImageCaptureUri, "image/*");
 
@@ -299,14 +282,6 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v)
     {
-        DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                doTakePhotoAction();
-            }
-
-        };
-
         DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

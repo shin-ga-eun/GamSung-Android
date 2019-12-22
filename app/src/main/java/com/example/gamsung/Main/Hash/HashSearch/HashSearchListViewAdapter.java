@@ -91,6 +91,11 @@ public class HashSearchListViewAdapter extends BaseAdapter {
         listViewItemList.add(item);
     }
 
+    public void deleteItem() {
+
+        listViewItemList.clear();
+    }
+
 
 }
 

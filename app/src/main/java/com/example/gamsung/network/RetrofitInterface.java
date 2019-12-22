@@ -92,5 +92,9 @@ public interface RetrofitInterface {
     @GET("/getSearchKeyword/{keyword}")
     Call<List<GetUserNameDto>> getSearchKeyword(@Path("keyword") String keyword);
 
+    //유저 검색 -identity
+    @GET("/getSearchTag/{keyword}")
+    Call<List<GetCardByTagDto>> getSearchTag(@Path("keyword") String keyword);
+
 
 }
