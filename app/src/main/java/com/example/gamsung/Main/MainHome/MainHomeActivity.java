@@ -189,14 +189,8 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
 
         });
 
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Toast.makeText(getApplicationContext(), "로딩중", Toast.LENGTH_LONG).show();
-                tabHost.setCurrentTab(0);
+        tabHost.setCurrentTab(0);
 
-//        }, 1800);
 
 
         ///////////////////////////////생성된 listview 에 클릭 이벤트 핸들러 정의///////////////////////

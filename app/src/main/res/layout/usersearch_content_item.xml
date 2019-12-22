@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!--#-->
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text=" @ "
+        android:textSize="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="15dp"
+        />
+    <!--    해시태그 이름-->
+    <TextView
+        android:id="@+id/textUserName"
+        android:layout_width="230dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:background="#FBFFB9"
+        />
+
+    <!--버튼-->
+    <Button
+        android:id="@+id/btnUserName"
+        android:layout_width="60dp"
+        android:layout_height="38dp"
+        android:text="이동"
+        android:textSize="13dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="3dp"
+        app:backgroundTint="#6E6E6E"
+
+        />
+</LinearLayout>

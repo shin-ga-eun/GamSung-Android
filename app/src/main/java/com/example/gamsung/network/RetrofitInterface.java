@@ -7,6 +7,7 @@ import com.example.gamsung.domain.dto.card.reply.GetReplyByCnoDto;
 import com.example.gamsung.domain.dto.tag.GetTagDto;
 import com.example.gamsung.domain.dto.tag.TagSaveDto;
 import com.example.gamsung.domain.dto.user.GetProfileDto;
+import com.example.gamsung.domain.dto.user.GetUserNameDto;
 import com.example.gamsung.domain.dto.user.LoginDto;
 import com.example.gamsung.domain.dto.user.LoginResponseDto;
 import com.example.gamsung.domain.dto.user.UserUpdateDto;
@@ -87,6 +88,9 @@ public interface RetrofitInterface {
     @GET("/getReply/{cno}")
     Call<List<GetReplyByCnoDto>> getReply(@Path("cno") Long cno);
 
+    //유저 검색 -identity
+    @GET("/getSearchKeyword/{keyword}")
+    Call<List<GetUserNameDto>> getSearchKeyword(@Path("keyword") String keyword);
 
 
 }
