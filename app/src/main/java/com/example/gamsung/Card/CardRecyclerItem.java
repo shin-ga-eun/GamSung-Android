@@ -2,50 +2,59 @@ package com.example.gamsung.Card;
 
 public class CardRecyclerItem {
 
-    private int img; //카드이미지
+    private String identity;
     private String content; //카드내용
-    private int fontSize; //폰트크기
-    private String time; //올린날짜
-//    private int CardNum; //카드게시글넘버
+    private int fontsize; //폰트크기
+    private String regDate;
+    private String imageUrl; //카드이미지
+    private Long rno;
 
-    public CardRecyclerItem(int img, String content, int fontSize, String time){
-        this.img = img;
-        this.content = content;
-        this.fontSize = fontSize;
-        this.time = time;
+    public String getIdentity() {
+        return identity;
     }
 
-    public void setImg(int img){
-        this.img = img;
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 
-    public int getImg (){
-        return this.img;
+    public String getContent() {
+        return content;
     }
 
-    public void setContent(String content){
+    public void setContent(String content) {
         this.content = content;
     }
 
-    public String getContent(){
-        return this.content;
+    public int getFontsize() {
+        return fontsize;
     }
 
-    public void setFontSize(int fontSize){
-        this.fontSize = fontSize;
+    public void setFontsize(int fontsize) {
+        this.fontsize = fontsize;
     }
 
-    public int getFontSize (){
-        return this.fontSize;
+    public String getRegDate() {
+        return regDate;
     }
 
-    public void setTime(String time){
-        this.time = time;
+    public void setRegDate(String regDate) {
+        this.regDate = regDate;
     }
 
-    public String getTime(){
-        return this.time;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Long getRno() {
+        return rno;
+    }
+
+    public void setRno(Long rno) {
+        this.rno = rno;
+    }
 }
 

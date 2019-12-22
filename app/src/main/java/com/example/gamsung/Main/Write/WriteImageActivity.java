@@ -64,7 +64,7 @@ public class WriteImageActivity extends AppCompatActivity implements View.OnClic
     ImageButton btnGallery, btnCheck;
 
     String content; //카드내용 받는 변수
-    int fontSize = 15; //폰트크기 받는 변수
+    int fontSize = 20; //폰트크기 받는 변수
     ArrayList<String> hasharray; //해시태그배열 변수
 
     @Override

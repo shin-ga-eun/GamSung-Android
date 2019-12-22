@@ -55,7 +55,7 @@ public class CardCommentWriteImageActivity extends AppCompatActivity implements 
     ImageButton btnGallery, btnCheck;
 
     String content; //카드내용 받는 변수
-    int fontSize; //폰트크기 받는 변수
+    int fontSize = 20; //폰트크기 받는 변수
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

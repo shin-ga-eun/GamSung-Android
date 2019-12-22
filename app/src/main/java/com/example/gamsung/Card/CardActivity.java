@@ -2,6 +2,7 @@ package com.example.gamsung.Card;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -11,13 +12,15 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.gamsung.Main.Write.CardCommentWriteActivity;
 import com.example.gamsung.Main.MyProfile.MyProfileActivity;
+import com.example.gamsung.Main.Write.CardCommentWriteActivity;
 import com.example.gamsung.R;
 import com.example.gamsung.domain.dto.card.GetCardDto;
+import com.example.gamsung.domain.dto.card.reply.GetReplyByCnoDto;
 import com.example.gamsung.network.NetRetrofit;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -107,17 +110,39 @@ public class CardActivity  extends AppCompatActivity {
 
         recyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
 
+        //서버연동
+        Call<List<GetReplyByCnoDto>> responseCard= NetRetrofit.getInstance().getNetRetrofitInterface().getReply(cno);
+        responseCard.enqueue(new Callback<List<GetReplyByCnoDto>>() {
+            @Override
+            public void onResponse(Call<List<GetReplyByCnoDto>> call, Response<List<GetReplyByCnoDto>> response) {
+                if(response.isSuccessful()) {
+                    Log.d("getReplyByCnoDto in replyController", "여기 들어와써여");
+                    List<GetReplyByCnoDto> resource = response.body();
 
+                    for(GetReplyByCnoDto getReplyByCnoDto: resource){
+                        adapter.addItem(getReplyByCnoDto.getRno(), getReplyByCnoDto.getIdentity(), getReplyByCnoDto.getContent(), getReplyByCnoDto.getImageUrl(), getReplyByCnoDto.getFontsize(), getReplyByCnoDto.getRegDate());
+                        Log.d("getReplyByCnoDto",getReplyByCnoDto.getRno().toString());
+                        Log.d("getReplyByCnoDto",getReplyByCnoDto.getContent());
+                        Log.d("getReplyByCnoDto",getReplyByCnoDto.getImageUrl());
+                        Log.d("getReplyByCnoDto", ""+getReplyByCnoDto.getFontsize());
+                        Log.d("getReplyByCnoDto", ""+getReplyByCnoDto.getRegDate());
+                    }
+                    adapter.notifyDataSetChanged();
 
+                    //댓글 리사이클러 뷰 갯수 == 댓글 수
+                    int commentNum = adapter.getItemCount();
+                    Log.d("reply >>>>>>>>>>>>>>> commentNum >>>>>>>>", ""+commentNum);
+                    textComment.setText(""+commentNum);
 
+                }
+            }
+            @Override
+            public void onFailure(Call<List<GetReplyByCnoDto>> call, Throwable t) {
 
+            }
 
+        });
 
-
-
-        //댓글 리사이클러 뷰 갯수 == 댓글 수
-        int commentNum = adapter.getItemCount();
-        textComment.setText(""+commentNum);
 
         //이전버튼 클릭 시, 내프로필 창으로
         btnMyProfile.setOnClickListener(new View.OnClickListener() {

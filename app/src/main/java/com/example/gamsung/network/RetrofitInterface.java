@@ -3,6 +3,7 @@ package com.example.gamsung.network;
 import com.example.gamsung.domain.dto.card.GetCardByIdentityDto;
 import com.example.gamsung.domain.dto.card.GetCardByTagDto;
 import com.example.gamsung.domain.dto.card.GetCardDto;
+import com.example.gamsung.domain.dto.card.reply.GetReplyByCnoDto;
 import com.example.gamsung.domain.dto.tag.GetTagDto;
 import com.example.gamsung.domain.dto.tag.TagSaveDto;
 import com.example.gamsung.domain.dto.user.GetProfileDto;
@@ -82,9 +83,9 @@ public interface RetrofitInterface {
     @POST("/saveReply")
     Call<ResponseBody> saveReply(@Part MultipartBody.Part imageFile, @Part("replySaveDto") RequestBody json);
 
-//    //댓글 리스트 출력 -cno
-//    @GET("/getReply/{cno}")
-//    Call<List<GetReplyByCnoDto>> getReply(@Path("cno") Long cno);
+    //댓글 리스트 출력 -cno
+    @GET("/getReply/{cno}")
+    Call<List<GetReplyByCnoDto>> getReply(@Path("cno") Long cno);
 
 
 
