@@ -12,7 +12,7 @@ public class NetRetrofit {
     }
 
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://3a224b34.ngrok.io/")
+            .baseUrl("http://f723331e.ngrok.io/")
             //Json 파일을 자바오브젝트로 변환시킬수 있게 Gson을 사용
             .addConverterFactory(GsonConverterFactory.create())
             .build();

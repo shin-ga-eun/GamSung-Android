@@ -69,12 +69,14 @@ public class CardActivity  extends AppCompatActivity {
         textCard = (TextView)findViewById(R.id.textCard);
         textTime = (TextView)findViewById(R.id.textTime);
         textComment = (TextView)findViewById(R.id.textComment);
-        textHeart = (TextView)findViewById(R.id.textHeart);
+
         btnMyProfile = (Button)findViewById(R.id.btnMyProfile);
         btnNickname = (Button)findViewById(R.id.btnNickname);
         btnComment = (ImageButton)findViewById(R.id.btnComment);
         btnHeart = (ImageButton)findViewById(R.id.btnHeart);
         btnDelete = (ImageButton)findViewById(R.id.btnDelete);
+
+        btnHeart.setVisibility(View.INVISIBLE);
 
         Toast.makeText(getApplicationContext(), ""+cno, Toast.LENGTH_SHORT).show();
         //레트로핏 연동 -카드
@@ -90,7 +92,7 @@ public class CardActivity  extends AppCompatActivity {
                     textCard.setTextSize(getCard.getFontsize()); //서버에서 가져올 폰트크기
                     imageUrl = getCard.getImageUrl();
                     textTime.setText(getCard.getRegDate()); //서버에서 가져올 작성시간
-                    textHeart.setText(""+getCard.getHeart());
+                   // textHeart.setText(""+getCard.getHeart());
 
                     if(!btnNickname.getText().toString().equals(identity)) {
                         btnDelete.setVisibility(View.INVISIBLE);

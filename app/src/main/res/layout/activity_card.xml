@@ -108,18 +108,28 @@
     </LinearLayout>
 
 <!--    댓글카드버튼, 공감버튼, 다운로드 버튼-->
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="댓글작성하기"
+            android:textSize="20dp"
+            android:layout_marginLeft="30dp"
+            ></TextView>
+
         <!--        댓글카드쓰기 버튼, 댓글 수-->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="10dp"
             >
 
             <ImageButton
@@ -138,6 +148,7 @@
                 android:textSize="25dp"
                 />
         </LinearLayout>
+
 
         <!--        공감 버튼, 공감 수-->
         <LinearLayout

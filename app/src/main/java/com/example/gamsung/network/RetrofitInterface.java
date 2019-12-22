@@ -28,7 +28,6 @@ import retrofit2.http.Path;
 
 public interface RetrofitInterface {
 
-
     //회원가입 -유저정보, 유저프로필이미지
     @Multipart
     @POST("/signUp")
