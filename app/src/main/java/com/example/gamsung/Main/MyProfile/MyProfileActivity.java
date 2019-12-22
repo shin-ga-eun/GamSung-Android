@@ -32,6 +32,7 @@ import com.example.gamsung.R;
 import com.example.gamsung.controller.UserController;
 import com.example.gamsung.domain.dto.card.GetCardByIdentityDto;
 import com.example.gamsung.domain.dto.user.GetProfileDto;
+import com.example.gamsung.domain.dto.user.GetUserNameDto;
 import com.example.gamsung.domain.dto.user.UserUpdateDto;
 import com.example.gamsung.network.NetRetrofit;
 
@@ -115,7 +116,6 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
             }
             else
                 Toast.makeText(getApplicationContext(), cardToIdentity + "의 프로필입니다.", Toast.LENGTH_SHORT).show();
-
             identity = cardToIdentity;
         }
 
@@ -123,6 +123,26 @@ public class MyProfileActivity  extends AppCompatActivity implements View.OnClic
         gridview = (GridView)findViewById(R.id.gridview);
         adapter = new MyProfileGridViewAdapter(this);
         gridview.setAdapter(adapter);
+
+        //서버연동 -total증가
+        final GetUserNameDto getUserNameDto = new GetUserNameDto();
+        getUserNameDto.setIdentity(identity);
+        Call<Void> responseTotal= NetRetrofit.getInstance().getNetRetrofitInterface().saveTotal(getUserNameDto);
+        responseTotal.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), getUserNameDto.getIdentity()+"님의 프로필입니다.", Toast.LENGTH_LONG).show();
+
+                }
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+
+        });
+
 
         //서버연동
         Log.d("서버 연동 시 참조하는 identity>>>",identity);

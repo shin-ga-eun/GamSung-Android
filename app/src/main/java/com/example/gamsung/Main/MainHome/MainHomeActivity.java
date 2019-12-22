@@ -178,6 +178,8 @@ public class MainHomeActivity extends AppCompatActivity implements MainHomeListV
                         adapter2.addItem(getTagDto.getTagname());
                     }
 
+                    adapter2.notifyDataSetChanged();
+
                 }
 
             }

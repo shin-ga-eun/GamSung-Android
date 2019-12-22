@@ -36,59 +36,76 @@
             />
     </LinearLayout>
 
-<!--    카드-->
-    <RelativeLayout
-        android:id="@+id/relativelayout"
-        android:layout_width="350dp"
-        android:layout_height="350dp"
-        android:orientation="vertical"
-        android:layout_marginTop="2dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_gravity="center"
         >
+    <!--    카드-->
+        <RelativeLayout
+            android:id="@+id/relativelayout"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:orientation="vertical"
+            android:layout_marginTop="2dp"
+            android:layout_gravity="center"
+            >
 
 
-        <ImageView
-            android:id="@+id/imgCard"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#000000"
-            android:src="@drawable/img1"
+            <ImageView
+                android:id="@+id/imgCard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#000000"
+                android:src="@drawable/img1"
+                />
+
+            <TextView
+                android:id="@+id/textCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignBottom="@id/imgCard"
+                android:layout_alignLeft="@id/imgCard"
+                android:layout_alignRight="@id/imgCard"
+                android:layout_alignTop="@id/imgCard"
+                android:gravity="center"
+
+                android:paddingLeft="20dp"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:typeface="serif" />
+
+            <TextView
+                android:id="@+id/textTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_alignBottom="@id/imgCard"
+                android:gravity="left"
+
+                android:background="#e3dede"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:textStyle="normal"
+                android:typeface="serif" />
+
+        </RelativeLayout>
+
+<!--        삭제버튼-->
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:background="@drawable/delete"
+            android:layout_marginTop="290dp"
             />
 
-        <TextView
-            android:id="@+id/textCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_alignBottom="@id/imgCard"
-            android:layout_alignLeft="@id/imgCard"
-            android:layout_alignRight="@id/imgCard"
-            android:layout_alignTop="@id/imgCard"
-            android:gravity="center"
-
-            android:paddingLeft="20dp"
-            android:textColor="#000000"
-            android:textSize="20dp"
-            android:textStyle="normal"
-            android:typeface="serif" />
-
-        <TextView
-            android:id="@+id/textTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_alignBottom="@id/imgCard"
-            android:gravity="left"
-
-            android:background="#e3dede"
-            android:textColor="#000000"
-            android:textSize="15dp"
-            android:textStyle="normal"
-            android:typeface="serif" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
 <!--    댓글카드버튼, 공감버튼, 다운로드 버튼-->
     <LinearLayout

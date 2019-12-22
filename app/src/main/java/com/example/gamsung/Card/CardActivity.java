@@ -1,6 +1,8 @@
 package com.example.gamsung.Card;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.gamsung.Main.MyProfile.MyProfileActivity;
 import com.example.gamsung.Main.Write.CardCommentWriteActivity;
 import com.example.gamsung.R;
+import com.example.gamsung.domain.dto.card.CardDeleteDto;
 import com.example.gamsung.domain.dto.card.GetCardDto;
 import com.example.gamsung.domain.dto.card.reply.GetReplyByCnoDto;
 import com.example.gamsung.network.NetRetrofit;
@@ -33,10 +36,14 @@ public class CardActivity  extends AppCompatActivity {
 
     Long cno; //그리드뷰로부터 받은 게시글번호 저장하는 변수
     Button btnMyProfile, btnNickname;
-    ImageButton btnComment, btnHeart;
+    ImageButton btnComment, btnHeart, btnDelete;
     TextView textCard, textTime;
     TextView textComment, textHeart;
     ImageView imgCard; //배경이미지
+
+    private SharedPreferences userInfo;
+    private SharedPreferences.Editor loginEditor;
+    String identity;
 
     RecyclerView recyclerview;
     CardRecyclerViewAdapter adapter;
@@ -53,6 +60,11 @@ public class CardActivity  extends AppCompatActivity {
         Intent inIntent = getIntent();
         cno = inIntent.getLongExtra("cno",0);
 
+        //로그인 사용자 identity 가져오기 -> getSharedPreferences()
+        userInfo=getSharedPreferences("UserInformation", Activity.MODE_PRIVATE);
+        loginEditor = userInfo.edit();
+        identity = userInfo.getString("identity",null); //현재 로그인된 사용자 identity
+
         imgCard = (ImageView)findViewById(R.id.imgCard);
         textCard = (TextView)findViewById(R.id.textCard);
         textTime = (TextView)findViewById(R.id.textTime);
@@ -62,6 +74,7 @@ public class CardActivity  extends AppCompatActivity {
         btnNickname = (Button)findViewById(R.id.btnNickname);
         btnComment = (ImageButton)findViewById(R.id.btnComment);
         btnHeart = (ImageButton)findViewById(R.id.btnHeart);
+        btnDelete = (ImageButton)findViewById(R.id.btnDelete);
 
         Toast.makeText(getApplicationContext(), ""+cno, Toast.LENGTH_SHORT).show();
         //레트로핏 연동 -카드
@@ -78,6 +91,10 @@ public class CardActivity  extends AppCompatActivity {
                     imageUrl = getCard.getImageUrl();
                     textTime.setText(getCard.getRegDate()); //서버에서 가져올 작성시간
                     textHeart.setText(""+getCard.getHeart());
+
+                    if(!btnNickname.getText().toString().equals(identity)) {
+                        btnDelete.setVisibility(View.INVISIBLE);
+                    }
 
                     //프로필이미지 uri Glide를 통해 넣기.
                     Glide.with(getApplicationContext())
@@ -101,6 +118,8 @@ public class CardActivity  extends AppCompatActivity {
             }
 
         });
+
+
 
 
         ////////////////////댓글카드 리사이클러 어댑터/////////////////////////////////////////////////
@@ -165,6 +184,36 @@ public class CardActivity  extends AppCompatActivity {
             }
         });
 
+        //카드삭제 -> 사용자인 경우 버튼 활성화되어 카드 삭제 가능
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CardDeleteDto cardDeleteDto = new CardDeleteDto();
+                cardDeleteDto.setCno(cno);
+
+                Call<Void> response= NetRetrofit.getInstance().getNetRetrofitInterface().deleteCard(cardDeleteDto);
+                response.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "카드를 삭제하였습니다", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                });
+
+                Intent intent = new Intent (getApplicationContext(), MyProfileActivity.class);
+                intent.putExtra("nickname", identity);
+                startActivity(intent);
+                finish();
+
+            }
+
+        });
         //댓글버튼 클릭 시, 카드쓰기 창으로
         btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,12 +221,11 @@ public class CardActivity  extends AppCompatActivity {
                 Intent intent = new Intent (getApplicationContext(), CardCommentWriteActivity.class);
                 intent.putExtra("cno",cno);
                 startActivity(intent);
-
-                finish(); //플래그 구현?????????????
-
+                finish();
             }
         });
 
+        /*
         //공감버튼 클릭 시, 공감수 1증가
         btnHeart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,7 +253,7 @@ public class CardActivity  extends AppCompatActivity {
             }
         });
 
-
+         */
 
 
     }

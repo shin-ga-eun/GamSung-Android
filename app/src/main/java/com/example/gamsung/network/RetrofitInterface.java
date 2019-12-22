@@ -1,5 +1,6 @@
 package com.example.gamsung.network;
 
+import com.example.gamsung.domain.dto.card.CardDeleteDto;
 import com.example.gamsung.domain.dto.card.GetCardByIdentityDto;
 import com.example.gamsung.domain.dto.card.GetCardByTagDto;
 import com.example.gamsung.domain.dto.card.GetCardDto;
@@ -96,5 +97,11 @@ public interface RetrofitInterface {
     @GET("/getSearchTag/{keyword}")
     Call<List<GetCardByTagDto>> getSearchTag(@Path("keyword") String keyword);
 
+    //카드 삭제 -cno
+    @POST("/deleteCard")
+    Call<Void> deleteCard(@Body CardDeleteDto cardDeleteDto);
 
+    //유저 total 증가 -identity
+    @POST("/saveTotal")
+    Call<Void> saveTotal(@Body GetUserNameDto getUserNameDto);
 }
