@@ -96,7 +96,7 @@ public class CardActivity  extends AppCompatActivity {
                         btnDelete.setVisibility(View.INVISIBLE);
                     }
 
-                    //프로필이미지 uri Glide를 통해 넣기.
+                    //카드이미지 uri Glide를 통해 넣기.
                     Glide.with(getApplicationContext())
                             .load(imageUrl) // image url
                             //.signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
@@ -118,7 +118,6 @@ public class CardActivity  extends AppCompatActivity {
             }
 
         });
-
 
 
 

@@ -162,7 +162,8 @@ public class CardCommentWriteImageActivity extends AppCompatActivity implements 
         // 앨범 호출
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(intent, PICK_FROM_ALBUM);
+
+        startActivityForResult(intent, PICK_FROM_ALBUM); //case문 이동
     }
 
     private String getRealPathFromURI(Uri contentURI) {
