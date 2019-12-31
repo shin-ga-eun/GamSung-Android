@@ -19,4 +19,41 @@
 
  ## 실행화면
  
+ * 회원가입
  
+ ![signup1](./image/sotong_image/signup1.jpg)
+ ![signup2](./image/sotong_image/signup2.jpg)
+ 
+ * 로그인
+ 
+ ![login](./image/sotong_image/login.jpg)
+ 
+ * 메인홈
+ 
+ ![mainhome](./image/sotong_image/mainhome.jpg)
+ 
+ * 태그검색
+ 
+ ![tag_search](./image/sotong_image/tag_search.jpg)
+ 
+ * 유저검색
+ 
+ ![user_search](./image/sotong_image/user_search.jpg)
+ 
+ * 카드 리스트 출력
+ 
+ ![card_gridlist](./image/sotong_image/card_gridlist.jpg)
+ 
+ * 카드 상세보기
+ 
+ ![card_detail](./image/sotong_image/card_detail.jpg)
+ 
+ * 마이프로필
+ 
+ ![myprofile](./image/sotong_image/myprofile.jpg)
+ 
+ * 카드작성
+ 
+ ![write1](./image/sotong_image/write1.jpg)
+ ![write2](./image/sotong_image/write2.jpg)
+ ![write3](./image/sotong_image/write3.jpg)
